@@ -14,6 +14,7 @@
   <link rel="preload" href="/assets/fonts/cormorant-garamond-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/estilos.css">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/marca/apple-touch-icon.png">
   <script src="/assets/js/tienda.js" defer></script>
 </head>
 <body data-universo="luna">
@@ -29,7 +30,7 @@
           <button class="icono-btn solo-movil" type="button" data-abre="panel-menu" aria-controls="panel-menu" aria-expanded="false" aria-label="Menú"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg></button>
           <a class="enlace-test" href="https://sizygiatestt.netlify.app/">¿Qué universo eres?</a>
         </div>
-        <a class="logo" href="/" aria-label="Sizygia, inicio"><svg viewBox="0 0 48 24" aria-hidden="true"><line x1="1" y1="12" x2="47" y2="12" stroke="#b8965a" stroke-width="1"/><circle cx="11" cy="12" r="9" fill="#b8965a"/><circle cx="29" cy="12" r="5" fill="#fff" stroke="#08060e" stroke-width="1.2"/><circle cx="41" cy="12" r="3" fill="#08060e"/></svg><span>Sizygia</span></a>
+        <a class="logo" href="/" aria-label="Sizygia, inicio"><img src="/assets/marca/logo-marron.svg" alt="Sizygia" width="195" height="99"></a>
         <div class="der">
           <button class="icono-btn" type="button" data-abre="panel-bolsa" aria-controls="panel-bolsa" aria-expanded="false" data-etiqueta-bolsa aria-label="Bolsa"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg><span class="contador" data-n="0" aria-hidden="true">0</span></button>
         </div>
@@ -67,7 +68,7 @@
   <footer class="pie">
     <div class="envoltorio">
       <div class="columnas">
-        <p class="firma">Joyas seleccionadas una a una, para decir quién eres.</p>
+        <div><img class="pie-logo" src="/assets/marca/logo-marron.svg" alt="Sizygia" width="195" height="99" loading="lazy"><p class="firma">Joyas seleccionadas una a una, para decir quién eres.</p></div>
         <div><h2>Comprar</h2><ul>
           <li><a href="/joyas">Todas las joyas</a></li>
           <li><a href="/sol">Sol</a> · <a href="/tierra">Tierra</a> · <a href="/luna">Luna</a></li>
@@ -114,8 +115,10 @@
     <div class="pie-panel" data-bolsa-pie hidden>
       <p class="nota-bolsa" data-progreso-texto></p>
       <div class="totales"></div>
-      <a class="boton boton--ancho" data-pedir href="https://wa.me/34638292643" target="_blank" rel="noopener">Pedir por WhatsApp</a>
-      <p class="nota-bolsa">Te confirmamos la disponibilidad y te mandamos el enlace de pago. Respondemos en menos de 24 horas.</p>
+      <button class="boton boton--ancho" type="button" data-pagar data-texto="Pagar con tarjeta">Pagar con tarjeta</button>
+      <p class="aviso-pago" data-aviso-pago role="alert" hidden></p>
+      <p class="nota-bolsa">Pago seguro a través de Stripe. Recibes la confirmación por correo y te enviamos el pedido en 24-48 horas laborables.</p>
+      <p class="nota-bolsa"><a data-pedir href="https://wa.me/34638292643" target="_blank" rel="noopener">¿Dudas antes de comprar? Escríbenos por WhatsApp</a></p>
     </div>
   </aside>
   <div class="aviso-flotante" role="status" aria-live="polite"></div>

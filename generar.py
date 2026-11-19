@@ -31,11 +31,6 @@ def foto_tipo(tipo):
     return FOTOS["portada"]
 
 
-MARCA_SVG = ('<svg viewBox="0 0 48 24" aria-hidden="true"><line x1="1" y1="12" x2="47" y2="12" stroke="#b8965a" stroke-width="1"/>'
-             '<circle cx="11" cy="12" r="9" fill="#b8965a"/><circle cx="29" cy="12" r="5" fill="#fff" stroke="#08060e" stroke-width="1.2"/>'
-             '<circle cx="41" cy="12" r="3" fill="#08060e"/></svg>')
-
-
 def ico(path, extra=""):
     return f'<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"{extra}>{path}</svg>'
 
@@ -101,6 +96,7 @@ def pagina(ruta, titulo, descripcion, cuerpo, universo="", actual="", imagen_og=
   <link rel="preload" href="/assets/fonts/cormorant-garamond-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/estilos.css">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/marca/apple-touch-icon.png">
   <script src="/assets/js/tienda.js" defer></script>
 </head>
 <body{uni}>
@@ -116,7 +112,7 @@ def pagina(ruta, titulo, descripcion, cuerpo, universo="", actual="", imagen_og=
           <button class="icono-btn solo-movil" type="button" data-abre="panel-menu" aria-controls="panel-menu" aria-expanded="false" aria-label="Menú">{I_MENU}</button>
           <a class="enlace-test" href="{TEST}">¿Qué universo eres?</a>
         </div>
-        <a class="logo" href="/" aria-label="Sizygia, inicio">{MARCA_SVG}<span>Sizygia</span></a>
+        <a class="logo" href="/" aria-label="Sizygia, inicio"><img src="/assets/marca/logo-marron.svg" alt="Sizygia" width="195" height="99"></a>
         <div class="der">
           <button class="icono-btn" type="button" data-abre="panel-bolsa" aria-controls="panel-bolsa" aria-expanded="false" data-etiqueta-bolsa aria-label="Bolsa">{I_BOLSA}<span class="contador" data-n="0" aria-hidden="true">0</span></button>
         </div>
@@ -133,7 +129,7 @@ def pagina(ruta, titulo, descripcion, cuerpo, universo="", actual="", imagen_og=
   <footer class="pie">
     <div class="envoltorio">
       <div class="columnas">
-        <p class="firma">Joyas seleccionadas una a una, para decir quién eres.</p>
+        <div><img class="pie-logo" src="/assets/marca/logo-marron.svg" alt="Sizygia" width="195" height="99" loading="lazy"><p class="firma">Joyas seleccionadas una a una, para decir quién eres.</p></div>
         <div><h2>Comprar</h2><ul>
           <li><a href="/joyas">Todas las joyas</a></li>
           <li><a href="/sol">Sol</a> · <a href="/tierra">Tierra</a> · <a href="/luna">Luna</a></li>
@@ -180,8 +176,10 @@ def pagina(ruta, titulo, descripcion, cuerpo, universo="", actual="", imagen_og=
     <div class="pie-panel" data-bolsa-pie hidden>
       <p class="nota-bolsa" data-progreso-texto></p>
       <div class="totales"></div>
-      <a class="boton boton--ancho" data-pedir href="{WA}" target="_blank" rel="noopener">Pedir por WhatsApp</a>
-      <p class="nota-bolsa">Te confirmamos la disponibilidad y te mandamos el enlace de pago. Respondemos en menos de 24 horas.</p>
+      <button class="boton boton--ancho" type="button" data-pagar data-texto="Pagar con tarjeta">Pagar con tarjeta</button>
+      <p class="aviso-pago" data-aviso-pago role="alert" hidden></p>
+      <p class="nota-bolsa">Pago seguro a través de Stripe. Recibes la confirmación por correo y te enviamos el pedido en 24-48 horas laborables.</p>
+      <p class="nota-bolsa"><a data-pedir href="{WA}" target="_blank" rel="noopener">¿Dudas antes de comprar? Escríbenos por WhatsApp</a></p>
     </div>
   </aside>
   <div class="aviso-flotante" role="status" aria-live="polite"></div>
@@ -327,7 +325,7 @@ def pieza():
 PASOS = """        <ol class="pasos">
           <li><h3>Elige tu pieza</h3><p>Por universo, o porque te ha mirado ella a ti. Si dudas, haz el test.</p></li>
           <li><h3>Añádela a la bolsa</h3><p>Puedes juntar varias piezas: desde 2 el envío es gratis.</p></li>
-          <li><h3>Pide por WhatsApp</h3><p>El botón de la bolsa nos manda tu pedido con el total. Te confirmamos la disponibilidad y te enviamos el enlace de pago en menos de 24 horas.</p></li>
+          <li><h3>Paga con tarjeta</h3><p>Desde la bolsa, en un pago seguro de Stripe. Ves el total con el envío antes de pagar y te llega la confirmación por correo.</p></li>
           <li><h3>Te llega a casa</h3><p>La preparamos en 1 o 2 días laborables y llega en 3 a 5 días más, con seguimiento.</p></li>
         </ol>"""
 
@@ -337,7 +335,7 @@ def como_comprar():
       <section class="seccion">
         <div class="contenedor">
           <h1>Cómo comprar</h1>
-          <p>Sin registro y sin contraseñas: llenas la bolsa, nos mandas el pedido y te la enviamos.</p>
+          <p>Sin registro y sin contraseñas: llenas la bolsa, pagas con tarjeta y te la enviamos.</p>
 {PASOS}
         </div>
       </section>
@@ -345,8 +343,8 @@ def como_comprar():
         <div class="contenedor">
           <h2>Pago</h2>
           <ul>
-            <li><strong>Por WhatsApp:</strong> nos llega tu bolsa, te confirmamos que todo está disponible y te enviamos un enlace de pago seguro con tarjeta. No vemos ni guardamos los datos de tu tarjeta.</li>
-            <li><strong>Con tarjeta desde la ficha:</strong> en las piezas que lo tienen, el botón «Pagar solo esta pieza con tarjeta» abre un pago seguro de Stripe.</li>
+            <li><strong>Con tarjeta en la web:</strong> pulsa «Pagar con tarjeta» en la bolsa, o «Comprar ahora con tarjeta» en la ficha de una pieza. El pago lo gestiona Stripe: no vemos ni guardamos los datos de tu tarjeta.</li>
+            <li><strong>Si tienes dudas antes de comprar:</strong> escríbenos por WhatsApp y te respondemos en menos de 24 horas.</li>
             <li><strong>En nuestros mercados y pop-ups:</strong> con tarjeta o en efectivo.</li>
           </ul>
           <p>Los precios incluyen IVA.</p>
@@ -403,7 +401,7 @@ def como_comprar():
       </section>
     </div>"""
     pagina("como-comprar.html", "Cómo comprar · Sizygia",
-           "Cómo comprar en Sizygia: pago con tarjeta o por WhatsApp, envío a España por 3,95 € (gratis desde 2 piezas) y 30 días para devolver.",
+           "Cómo comprar en Sizygia: pago seguro con tarjeta, envío a España por 3,95 € (gratis desde 2 piezas) y 30 días para devolver.",
            cuerpo, actual="/como-comprar")
 
 
@@ -513,7 +511,7 @@ def legal():
           <ul>
             <li>Los precios están en euros e incluyen IVA. El envío cuesta 3,95 € por pedido y es gratis desde 2 piezas.</li>
             <li>Enviamos solo a España: 1 o 2 días laborables de preparación y 3 a 5 días laborables de entrega.</li>
-            <li>La compra se cierra cuando confirmamos tu pedido y recibimos el pago.</li>
+            <li>La compra se cierra cuando completas el pago y te llega la confirmación por correo.</li>
             <li><strong>Devoluciones:</strong> tienes 30 días naturales desde la entrega para devolver la pieza sin dar explicaciones (más de los 14 días que exige la ley). El envío de vuelta lo pagas tú, salvo defecto o error nuestro. Te devolvemos el dinero por el mismo medio de pago en un máximo de 14 días desde que nos avisas, una vez recibida la pieza.</li>
             <li><strong>Garantía:</strong> si una pieza tiene un defecto de origen, tienes la garantía que marca la ley de consumo.</li>
             <li>Para cualquier reclamación: {MAIL}.</li>
@@ -523,6 +521,26 @@ def legal():
     </div>"""
     pagina("legal.html", "Aviso legal, privacidad y condiciones · Sizygia",
            "Aviso legal, política de privacidad y condiciones de venta de Sizygia.", cuerpo)
+
+
+def pedido_confirmado():
+    cuerpo = f"""    <div class="texto" data-vaciar-bolsa><section class="seccion">
+      <div class="contenedor">
+        <h1>Pedido confirmado</h1>
+        <p>Gracias por tu compra. Te hemos enviado el recibo por correo.</p>
+        <ul>
+          <li>Preparamos tu pedido en 1 o 2 días laborables.</li>
+          <li>Cuando salga, te mandamos el número de seguimiento.</li>
+          <li>Llega en 3 a 5 días laborables más.</li>
+        </ul>
+        <p>Si quieres cambiar algo del pedido, escríbenos cuanto antes por <a href="{WA}">WhatsApp</a> o a <a href="mailto:{MAIL}">{MAIL}</a>.</p>
+        <div class="botones">
+          <a class="boton" href="/joyas">Seguir viendo joyas</a>
+          <a class="boton boton--contorno" href="{IG}">Síguenos en Instagram</a>
+        </div>
+      </div>
+    </section></div>"""
+    pagina("pedido-confirmado.html", "Pedido confirmado · Sizygia", "Tu pedido en Sizygia está confirmado.", cuerpo)
 
 
 def error404():
@@ -552,5 +570,6 @@ if __name__ == "__main__":
     material()
     sobre()
     legal()
+    pedido_confirmado()
     error404()
     print("Páginas generadas en", SITE)

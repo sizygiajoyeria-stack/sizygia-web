@@ -24,7 +24,7 @@
         "/img/colgante-sol-irregular-3.jpg"
       ],
       "alt": "Colgante Sol irregular de acero 304L con acabado dorado",
-      "stripe": ""
+      "stripe": "https://buy.stripe.com/7sY3cu64386v2853E38AE05"
     },
     {
       "id": "pulsera-sol-irregular",
@@ -48,7 +48,7 @@
         "/img/pulsera-sol-irregular-2.jpg"
       ],
       "alt": "Pulsera Sol Irregular de acero 304L con acabado dorado",
-      "stripe": ""
+      "stripe": "https://buy.stripe.com/28EfZg0JJ3QfeUR2zZ8AE06"
     },
     {
       "id": "pendientes-sol",
@@ -72,7 +72,7 @@
         "/img/pendientes-sol-2.jpg"
       ],
       "alt": "Pendientes sol de acero 304L con acabado dorado",
-      "stripe": ""
+      "stripe": "https://buy.stripe.com/7sYaEWakj72rcMJ2zZ8AE07"
     },
     {
       "id": "colgante-sol",
@@ -96,7 +96,7 @@
         "/img/colgante-sol-2.jpg"
       ],
       "alt": "Colgante Sol de acero 304L con acabado dorado",
-      "stripe": ""
+      "stripe": "https://buy.stripe.com/7sY14m0JJ5YncMJb6v8AE03"
     },
     {
       "id": "rayos-de-luz",
@@ -120,7 +120,7 @@
         "/img/rayos-de-luz-2.jpg"
       ],
       "alt": "Anillo Rayos de luz de acero 304L",
-      "stripe": ""
+      "stripe": "https://buy.stripe.com/fZu6oGeAz72reUR5Mb8AE0f"
     },
     {
       "id": "pendientes-gotas-de-luna",
@@ -144,7 +144,7 @@
         "/img/pendientes-gotas-de-luna-2.jpg"
       ],
       "alt": "Pendientes Gotas de luna de acero 304L plateado",
-      "stripe": ""
+      "stripe": "https://buy.stripe.com/bJedR8eAz86v5khfmL8AE09"
     },
     {
       "id": "pulsera-escamas-de-luna",
@@ -169,7 +169,7 @@
         "/img/pulsera-escamas-de-luna-3.jpg"
       ],
       "alt": "Pulsera Escamas de luna de acero 304L plateado",
-      "stripe": ""
+      "stripe": "https://buy.stripe.com/dRmeVcfEDeuT9Ax6Qf8AE08"
     },
     {
       "id": "colgante-piedra",
@@ -182,12 +182,14 @@
         {
           "nombre": "Marrón",
           "stock": 5,
-          "foto": 0
+          "foto": 0,
+          "stripe": "https://buy.stripe.com/6oU00i6439az1418Yn8AE0b"
         },
         {
           "nombre": "Verde",
           "stock": 5,
-          "foto": 1
+          "foto": 1,
+          "stripe": "https://buy.stripe.com/28EdR89gf0E38wt0rR8AE0a"
         }
       ],
       "acabado": "Cadena dorada con piedra natural",

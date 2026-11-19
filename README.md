@@ -10,7 +10,11 @@ Web de Sizygia (sizygia.es). Es una web estática y sin coste: el código vive e
   - `_redirects`: lleva los enlaces antiguos de Shopify a las páginas nuevas.
 - `generar.py`: genera las páginas HTML (cabecera, pie y textos). Solo hace falta si se cambian los textos de las páginas.
 
-## Publicar en Cloudflare Pages (una sola vez)
+## Publicación
+
+Está publicada en Cloudflare como **Worker** con archivos estáticos: `wrangler.jsonc` indica que la web está en `site`. Cada cambio guardado en GitHub se publica solo. Dirección provisional: https://sizygia-web.sizygia-joyeria.workers.dev
+
+## Instrucciones antiguas (Cloudflare Pages)
 
 1. Cloudflare › Workers & Pages › Create › Pages › Connect to Git.
 2. Elegir el repositorio `sizygia-web`.
@@ -33,3 +37,11 @@ Campos: `id` (minúsculas y guiones; es la dirección de la ficha), `universo` (
 - [ ] Enlaces de pago de Stripe por pieza en `stripe`.
 - [ ] «Rayos de luz»: acabado, medidas, talla y descripción.
 - [ ] Confirmar el número de WhatsApp (en `assets/js/tienda.js` y `generar.py`).
+
+## Pago con Stripe (desde el 19/11/2026)
+
+- `worker/index.js` atiende `POST /api/checkout`: recibe la bolsa (id, variante, cantidad), recalcula precios con `site/data/catalogo.json` y crea una sesión de Stripe Checkout. Envío: 3,95 € con una pieza, gratis desde 2. Solo España.
+- El resto de rutas las sirven los archivos de `site/` (binding `ASSETS`).
+- La clave va como secreto `STRIPE_SECRET_KEY` en Cloudflare (Workers > sizygia-web > Configuración > Variables y secretos). Nunca en el código.
+- Tras pagar, Stripe vuelve a `/pedido-confirmado`, que vacía la bolsa. Si el servicio falla y la bolsa tiene una sola pieza, la web usa el enlace de pago de esa pieza (`stripe` en el catálogo).
+- Prueba en local: crea `.dev.vars` con `STRIPE_SECRET_KEY=sk_test_...` y ejecuta `npx wrangler dev`. `.dev.vars` no se sube.

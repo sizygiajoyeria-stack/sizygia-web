@@ -114,9 +114,58 @@
       tot.appendChild(el("span", { "class": j === 2 ? "total" : "", texto: f[1] }));
     });
     var lineas = bolsa.map(function (l) { var p = porId(l.id); return "· " + l.cantidad + " × " + p.nombre + (p.variantes.length > 1 ? " (" + l.variante + ")" : "") + " · " + euros(p.precio * l.cantidad); });
-    var msg = "Hola, quiero hacer este pedido:\n" + lineas.join("\n") + "\nEnvío: " + (e ? euros(e) : "gratis") + "\nTotal: " + euros(subtotal() + e);
+    var msg = "Hola, tengo una pregunta sobre estas piezas:\n" + lineas.join("\n");
     pie.querySelector("[data-pedir]").href = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(msg);
   }
+
+  // ——— Pago con Stripe ———
+  // El servidor recalcula precios y envío con el catálogo; aquí solo mandamos qué piezas y cuántas.
+  function pagar(lineas, boton, aviso, respaldo) {
+    if (boton.disabled) return;
+    var texto = boton.innerHTML;
+    boton.disabled = true;
+    boton.setAttribute("aria-busy", "true");
+    boton.textContent = "Preparando el pago…";
+    if (aviso) aviso.hidden = true;
+    function fallo(m) {
+      boton.disabled = false;
+      boton.removeAttribute("aria-busy");
+      boton.innerHTML = texto;
+      if (respaldo) { location.href = respaldo; return; }
+      if (aviso) { aviso.textContent = m; aviso.hidden = false; }
+    }
+    fetch("/api/checkout", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ items: lineas.map(function (l) { return { id: l.id, variante: l.variante, cantidad: l.cantidad }; }) })
+    }).then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+      .then(function (r) {
+        if (r.ok && r.d.url) { location.href = r.d.url; return; }
+        var m = r.d && r.d.error && r.d.error !== "No se pudo iniciar el pago" ? r.d.error + ". Quítala de la bolsa o escríbenos por WhatsApp." : "No hemos podido abrir el pago. Inténtalo de nuevo en un momento o escríbenos por WhatsApp.";
+        fallo(m);
+      })
+      .catch(function () { fallo("Sin conexión con el pago. Revisa tu conexión e inténtalo de nuevo."); });
+  }
+  function prepararPagoBolsa() {
+    var b = document.querySelector("[data-pagar]");
+    if (!b) return;
+    b.addEventListener("click", function () {
+      if (!bolsa.length) return;
+      // Con una sola pieza, si el servidor falla, usamos su enlace de pago directo.
+      var respaldo = null;
+      if (bolsa.length === 1 && bolsa[0].cantidad === 1) {
+        var p = porId(bolsa[0].id), v = p && p.variantes.filter(function (x) { return x.nombre === bolsa[0].variante; })[0];
+        respaldo = (v && v.stripe) || (p && p.stripe) || null;
+      }
+      pagar(bolsa, b, document.querySelector("[data-aviso-pago]"), respaldo);
+    });
+  }
+  // Volver con el navegador desde Stripe no debe dejar el botón bloqueado.
+  window.addEventListener("pageshow", function () {
+    document.querySelectorAll("[data-pagar], [data-comprar]").forEach(function (b) {
+      if (b.getAttribute("aria-busy")) { b.disabled = false; b.removeAttribute("aria-busy"); b.innerHTML = b.getAttribute("data-texto") || b.innerHTML; }
+    });
+  });
 
   // ——— Paneles laterales ———
   var abierto = null, origen = null;
@@ -283,7 +332,10 @@
       wa.innerHTML = I.wa + "<span>" + (agotada ? "Avísame cuando vuelva" : "Pregúntanos por WhatsApp") + "</span>";
     }
     actualizarWa();
-    var pagar = p.stripe && !agotada ? el("a", { "class": "boton boton--contorno boton--ancho", href: p.stripe, rel: "noopener", texto: "Pagar solo esta pieza con tarjeta" }) : null;
+    function enlacePago() { var v = p.variantes.filter(function (x) { return x.nombre === elegida; })[0]; return (v && v.stripe) || p.stripe || ""; }
+    var avisoFicha = el("p", { "class": "aviso-pago", role: "alert", hidden: "" });
+    var comprar = agotada ? null : el("button", { "class": "boton boton--contorno boton--ancho", type: "button", "data-comprar": "", "data-texto": "Comprar ahora con tarjeta", texto: "Comprar ahora con tarjeta" });
+    if (comprar) comprar.addEventListener("click", function () { pagar([{ id: p.id, variante: elegida, cantidad: 1 }], comprar, avisoFicha, enlacePago() || null); });
 
     var dl = el("dl");
     [fila("Material", "Acero inoxidable 304L"), fila("Acabado", p.acabado), fila("Medidas", p.medidas), fila("Cierre", p.cierre), fila("Universo", NOMBRES[p.universo])].forEach(function (f) { if (f) dl.appendChild(f); });
@@ -297,7 +349,7 @@
       el("p", { "class": "material", texto: p.tipo + " · " + material(p) }),
       p.descripcion ? el("p", { "class": "desc", texto: p.descripcion }) : null,
       variantes,
-      el("div", { "class": "acciones" }, [anadirBtn, pagar, wa]),
+      el("div", { "class": "acciones" }, [anadirBtn, comprar, avisoFicha, wa]),
       el("p", { "class": "aviso-envio", "data-progreso-texto": "" }),
       garantias ? garantias.content.cloneNode(true) : null,
       el("details", { "class": "desplegable", open: "" }, [el("summary", { texto: "Características" }), el("div", { "class": "cont" }, [dl])]),
@@ -343,10 +395,13 @@
   }
 
   leer();
+  // Página de pedido confirmado: el pago ya está hecho, vaciamos la bolsa.
+  if (document.querySelector("[data-vaciar-bolsa]")) { bolsa = []; guardar(); }
   paneles();
   carruseles();
   anuncios();
   pintarProgreso();
+  prepararPagoBolsa();
   fetch("/data/catalogo.json")
     .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
     .then(function (d) { piezas = d.piezas; ficha(); pintarListas(); pintarBolsa(); })

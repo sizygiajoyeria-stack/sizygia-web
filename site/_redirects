@@ -6,10 +6,10 @@
 /products/:id                   /pieza?p=:id         301
 /pages/conocenos                /sobre               301
 /pages/que-es-sizygia           /sobre               301
-/pages/preguntas-frecuentes     /como-comprar#preguntas  301
-/pages/envios-y-devoluciones    /como-comprar#envios 301
-/pages/contacto                 /como-comprar#contacto   301
-/pages/contact                  /como-comprar#contacto   301
+/pages/preguntas-frecuentes     /como-comprar  301
+/pages/envios-y-devoluciones    /como-comprar 301
+/pages/contacto                 /como-comprar   301
+/pages/contact                  /como-comprar   301
 /pages/*                        /                    301
 /blogs/sobre-sizygia-1/que-es-sizygia   /sobre       301
 /blogs/*                        /material-y-cuidado  301
