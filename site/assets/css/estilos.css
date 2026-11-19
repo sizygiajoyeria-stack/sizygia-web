@@ -401,3 +401,13 @@ p { margin: 0 0 1em; text-wrap: pretty; }
 .test-resultado .test-piezas .rejilla { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 @media (max-width: 520px) { .test-universos { grid-template-columns: 1fr; } .test-universos li { grid-template-columns: auto 1fr; align-items: baseline; gap: .8rem; text-align: left; padding: 1rem 1.1rem; } }
 @media (prefers-reduced-motion: reduce) { .test-progreso .lleno, .reparto-fila .lleno, .test-opcion { transition: none; } }
+
+/* ——— Rebaja temporal (Black Week) ——— */
+.precio.rebajado { display: flex; flex-wrap: wrap; align-items: baseline; gap: .1rem .45rem; }
+.precio.rebajado del { color: #8a8378; font-weight: 400; font-size: .85em; }
+.precio.rebajado .insignia { background: var(--ink, #08060e); color: #f7f3ed; font-size: .68rem; font-weight: 500; letter-spacing: .04em; padding: .15rem .45rem; border-radius: 2px; }
+.promo-banda { background: var(--ink, #08060e); color: #f7f3ed; text-align: center; padding: 2.2rem 1.25rem; display: grid; justify-items: center; gap: .6rem; }
+.promo-banda .promo-tit { font-family: "Cormorant Garamond", serif; font-size: clamp(1.7rem, 4vw, 2.6rem); margin: 0; }
+.promo-banda .promo-txt { max-width: 36rem; margin: 0; opacity: .85; }
+.promo-banda .promo-reloj { color: #b8965a; font-variant-numeric: tabular-nums; letter-spacing: .04em; }
+.promo-banda .boton { margin-top: .4rem; }

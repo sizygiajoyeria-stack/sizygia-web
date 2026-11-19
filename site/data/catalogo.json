@@ -1,5 +1,13 @@
 {
   "_instrucciones": "Para añadir una pieza, copia un bloque entero de 'piezas', cambia sus datos y guarda. 'id' va en minúsculas y con guiones; es la dirección de la ficha (sizygia.es/pieza?p=id). 'stripe' es el enlace de pago de Stripe; si está vacío, la ficha solo muestra el botón de WhatsApp. 'stock' a 0 marca la variante como agotada.",
+  "promo": {
+    "_nota": "Rebaja temporal. Se aplica sola entre 'inicio' y 'fin' (hora de Madrid) en la web y en el cobro de Stripe. El precio tachado es 'precio' de cada pieza, que debe ser el más bajo de los 30 días anteriores. Para quitarla antes, pon 'activa' a false.",
+    "activa": true,
+    "nombre": "Black Week",
+    "descuento": 15,
+    "inicio": "2026-11-23T00:00:00+01:00",
+    "fin": "2026-11-30T23:59:59+01:00"
+  },
   "piezas": [
     {
       "id": "colgante-sol-irregular",

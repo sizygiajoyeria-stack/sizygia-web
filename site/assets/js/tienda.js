@@ -17,6 +17,43 @@
   };
 
   var piezas = [];
+  var promo = null; // rebaja activa ahora mismo (o null)
+  function aplicarPromo(d) {
+    var pr = d.promo, ahora = Date.now();
+    if (!pr || !pr.activa || !(pr.descuento > 0) || ahora < Date.parse(pr.inicio) || ahora > Date.parse(pr.fin)) return;
+    promo = pr;
+    piezas.forEach(function (p) { p.precioAntes = p.precio; p.precio = Math.round(Math.round(p.precio * 100) * (100 - pr.descuento) / 100) / 100; });
+    var a = document.querySelector(".anuncios");
+    if (a) {
+      a.querySelectorAll("p").forEach(function (x) { x.setAttribute("aria-hidden", "true"); });
+      a.insertBefore(el("p", { "aria-hidden": "false", texto: pr.nombre + " · −" + pr.descuento + " % en todas las piezas hasta el lunes 30" }), a.firstChild);
+    }
+    var main = document.querySelector("main");
+    if (main && (location.pathname === "/" || location.pathname === "/index.html")) {
+      var reloj = el("span", { "class": "promo-reloj" });
+      var banda = el("section", { "class": "promo-banda", "aria-label": pr.nombre }, [
+        el("p", { "class": "promo-tit", texto: pr.nombre + " · −" + pr.descuento + " % en todo" }),
+        el("p", { "class": "promo-txt", texto: "Las mismas piezas de acero 304L, con su precio de siempre tachado al lado. Termina el lunes 30 a las 23:59." }),
+        reloj,
+        el("a", { "class": "boton", href: "/joyas", texto: "Ver todas las piezas" })
+      ]);
+      main.insertBefore(banda, main.firstChild);
+      var fin = Date.parse(pr.fin);
+      (function tic() {
+        var r = Math.max(0, fin - Date.now()), dd = Math.floor(r / 864e5), hh = Math.floor(r / 36e5) % 24, mm = Math.floor(r / 6e4) % 60;
+        reloj.textContent = r ? "Quedan " + dd + " d " + hh + " h " + mm + " min" : "Ha terminado";
+        if (r) setTimeout(tic, 30000);
+      })();
+    }
+  }
+  function precioEl(p, clase) {
+    if (!p.precioAntes) return el("p", { "class": clase, texto: euros(p.precio) });
+    return el("p", { "class": clase + " rebajado" }, [
+      el("del", { texto: euros(p.precioAntes), "aria-label": "Antes " + euros(p.precioAntes) }),
+      el("span", { texto: " " + euros(p.precio) }),
+      el("span", { "class": "insignia", texto: "−" + promo.descuento + " %" })
+    ]);
+  }
   function porId(id) { return piezas.filter(function (p) { return p.id === id; })[0]; }
   function euros(n) { return n.toLocaleString("es-ES", { style: "currency", currency: "EUR" }); }
   function foto(src, w) { return /cdn\.shopify\.com/.test(src) && src.indexOf("?") < 0 ? src + "?width=" + w : src; }
@@ -155,7 +192,7 @@
       var respaldo = null;
       if (bolsa.length === 1 && bolsa[0].cantidad === 1) {
         var p = porId(bolsa[0].id), v = p && p.variantes.filter(function (x) { return x.nombre === bolsa[0].variante; })[0];
-        respaldo = (v && v.stripe) || (p && p.stripe) || null;
+        respaldo = promo ? null : (v && v.stripe) || (p && p.stripe) || null; // los enlaces fijos no llevan la rebaja
       }
       pagar(bolsa, b, document.querySelector("[data-aviso-pago]"), respaldo);
     });
@@ -248,7 +285,7 @@
       el("div", { "class": "info" }, [
         el("a", { "class": "nombre", href: url, texto: p.nombre }),
         el("p", { "class": "material", texto: material(p) }),
-        el("p", { "class": "precio", texto: euros(p.precio) })
+        precioEl(p, "precio")
       ])
     ]);
   }
@@ -335,7 +372,7 @@
     function enlacePago() { var v = p.variantes.filter(function (x) { return x.nombre === elegida; })[0]; return (v && v.stripe) || p.stripe || ""; }
     var avisoFicha = el("p", { "class": "aviso-pago", role: "alert", hidden: "" });
     var comprar = agotada ? null : el("button", { "class": "boton boton--contorno boton--ancho", type: "button", "data-comprar": "", "data-texto": "Comprar ahora con tarjeta", texto: "Comprar ahora con tarjeta" });
-    if (comprar) comprar.addEventListener("click", function () { pagar([{ id: p.id, variante: elegida, cantidad: 1 }], comprar, avisoFicha, enlacePago() || null); });
+    if (comprar) comprar.addEventListener("click", function () { pagar([{ id: p.id, variante: elegida, cantidad: 1 }], comprar, avisoFicha, promo ? null : enlacePago() || null); });
 
     var dl = el("dl");
     [fila("Material", "Acero inoxidable 304L"), fila("Acabado", p.acabado), fila("Medidas", p.medidas), fila("Cierre", p.cierre), fila("Universo", NOMBRES[p.universo])].forEach(function (f) { if (f) dl.appendChild(f); });
@@ -345,7 +382,7 @@
       el("a", { "class": "etiqueta-u", href: "/" + p.universo, texto: "Universo " + NOMBRES[p.universo] }),
       el("h1", { texto: p.nombre }),
       el("p", { "class": "lema", texto: FRASES[p.universo] }),
-      el("p", { "class": "precio", texto: euros(p.precio) }),
+      precioEl(p, "precio"),
       el("p", { "class": "material", texto: p.tipo + " · " + material(p) }),
       p.descripcion ? el("p", { "class": "desc", texto: p.descripcion }) : null,
       variantes,
@@ -406,7 +443,7 @@
   document.addEventListener("sizygia:pintar", function () { if (piezas.length) pintarListas(); });
   fetch("/data/catalogo.json")
     .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-    .then(function (d) { piezas = d.piezas; ficha(); pintarListas(); pintarBolsa(); })
+    .then(function (d) { piezas = d.piezas; aplicarPromo(d); ficha(); pintarListas(); pintarBolsa(); })
     .catch(function () {
       document.querySelectorAll("[data-piezas], #ficha").forEach(function (n) { n.innerHTML = ""; n.appendChild(el("p", { "class": "vacio", texto: "No se ha podido cargar el catálogo. Recarga la página o escríbenos por WhatsApp." })); });
     });
