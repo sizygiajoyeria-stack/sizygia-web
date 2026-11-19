@@ -402,6 +402,8 @@
   anuncios();
   pintarProgreso();
   prepararPagoBolsa();
+  // El test pide repintar sus piezas cuando ya sabe el universo.
+  document.addEventListener("sizygia:pintar", function () { if (piezas.length) pintarListas(); });
   fetch("/data/catalogo.json")
     .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
     .then(function (d) { piezas = d.piezas; ficha(); pintarListas(); pintarBolsa(); })

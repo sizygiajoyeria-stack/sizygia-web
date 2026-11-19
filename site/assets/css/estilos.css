@@ -345,3 +345,59 @@ p { margin: 0 0 1em; text-wrap: pretty; }
 .aviso-pago[hidden] { display: none; }
 [data-pagar][aria-busy="true"], [data-comprar][aria-busy="true"] { opacity: .7; cursor: progress; }
 .pie-panel .nota-bolsa a { color: inherit; }
+
+/* Test «¿Qué universo eres?» */
+.test { padding-block: clamp(2.5rem, 7vw, 5rem); scroll-margin-top: 6rem; }
+.test-paso { max-width: 40rem; margin-inline: auto; }
+.test-paso[hidden] { display: none; }
+.test-intro { text-align: center; }
+.test-intro h1 { font-size: clamp(2.8rem, 7vw, 4.4rem); }
+.test-entradilla { font-size: 1.12rem; color: var(--text-muted); max-width: 32rem; margin: 0 auto 2rem; text-wrap: pretty; }
+.test-universos { list-style: none; padding: 0; margin: 0 0 2.2rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: .6rem; }
+.test-universos li { border-radius: var(--r-md); padding: 1.3rem .8rem; display: grid; gap: .3rem; }
+.test-universos span { font-family: var(--display); font-size: 1.7rem; font-weight: 500; line-height: 1; }
+.test-universos em { font-size: .82rem; color: var(--text-muted); font-style: normal; line-height: 1.35; }
+.u-sol { background: var(--sol); } .u-tierra { background: var(--tierra); } .u-luna { background: var(--luna); }
+.test-nota { font-size: .85rem; color: var(--text-muted); margin-top: 1rem; }
+.test-progreso { display: flex; align-items: center; gap: 1rem; font-size: .88rem; color: var(--text-muted); margin-bottom: 2rem; }
+.test-progreso .pista { flex: 1; height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; }
+.test-progreso .lleno { display: block; height: 100%; width: 0; background: var(--text); transition: width .45s var(--ease); }
+.test-tema { font-family: var(--display); font-style: italic; font-size: 1.2rem; color: var(--text-muted); margin: 0 0 .3rem; }
+.test-pregunta h2 { font-size: clamp(1.9rem, 4.5vw, 2.6rem); margin-bottom: 1.6rem; }
+.test-pregunta h2:focus, .test-intro h1:focus, .test-nombre:focus { outline: none; }
+.test-opciones { display: grid; gap: .65rem; }
+.test-opcion { display: grid; gap: .15rem; text-align: left; width: 100%; padding: 1rem 1.15rem; min-height: 3.5rem; border: 1px solid var(--border); border-radius: var(--r-md); background: var(--bg); color: var(--text); font: inherit; cursor: pointer; transition: border-color .2s ease, background .2s ease, transform .15s ease; }
+.test-opcion .t { font-weight: 500; font-size: 1.05rem; }
+.test-opcion .d { font-size: .9rem; color: var(--text-muted); }
+.test-opcion:hover { border-color: var(--text); }
+.test-opcion:active { transform: scale(.99); }
+.test-opcion[aria-pressed="true"] { background: var(--text); border-color: var(--text); color: var(--bg); }
+.test-opcion[aria-pressed="true"] .d { color: rgba(255, 255, 255, .78); }
+.enlace-atras { margin-top: 1.4rem; background: none; border: 0; padding: .4rem 0; font: inherit; font-size: .92rem; color: var(--text-muted); text-decoration: underline; text-underline-offset: .2em; cursor: pointer; }
+.enlace-atras:hover { color: var(--text); }
+.test-tarjeta { border-radius: var(--r-md); padding: clamp(1.8rem, 5vw, 3rem); text-align: center; background: var(--surface); }
+.test-resultado[data-u="sol"] .test-tarjeta { background: var(--sol); }
+.test-resultado[data-u="tierra"] .test-tarjeta { background: var(--tierra); }
+.test-resultado[data-u="luna"] .test-tarjeta { background: var(--luna); }
+.test-soy { margin: 0; font-size: .95rem; }
+.test-nombre { font-size: clamp(4rem, 13vw, 6rem); line-height: .95; margin: .2rem 0 .3rem; }
+.test-frase { font-family: var(--display); font-style: italic; font-size: 1.35rem; margin: 0 0 1rem; }
+.test-texto { max-width: 30rem; margin: 0 auto 1.8rem; text-wrap: pretty; }
+.reparto { display: grid; gap: .8rem; max-width: 24rem; margin-inline: auto; text-align: left; }
+.reparto-fila { display: grid; grid-template-columns: 1fr auto; gap: .3rem 1rem; font-size: .95rem; }
+.reparto-fila output { font-variant-numeric: tabular-nums; }
+.reparto-fila .pista { grid-column: 1 / -1; height: 4px; background: rgba(8, 6, 14, .12); border-radius: 2px; overflow: hidden; }
+.reparto-fila .lleno { display: block; height: 100%; width: 0; background: rgba(8, 6, 14, .45); transition: width .8s var(--ease) .15s; }
+.test-resultado[data-u="sol"] [data-reparto="sol"], .test-resultado[data-u="tierra"] [data-reparto="tierra"], .test-resultado[data-u="luna"] [data-reparto="luna"] { font-weight: 500; }
+.test-resultado[data-u="sol"] [data-reparto="sol"] .lleno, .test-resultado[data-u="tierra"] [data-reparto="tierra"] .lleno, .test-resultado[data-u="luna"] [data-reparto="luna"] .lleno { background: var(--text); }
+.test-acciones { display: grid; gap: .65rem; margin-top: 1.4rem; justify-items: stretch; }
+.test-acciones .enlace-atras { justify-self: center; margin-top: .4rem; }
+.test-acciones [aria-busy="true"] { opacity: .65; cursor: progress; }
+.aviso-test { margin: 0; padding: .6rem .8rem; border-radius: var(--r-sm); background: var(--surface); font-size: .9rem; }
+.aviso-test[hidden] { display: none; }
+.test-piezas { margin-top: 3.5rem; }
+.test-piezas > p { color: var(--text-muted); margin-bottom: 1.4rem; }
+.test-resultado { max-width: 40rem; }
+.test-resultado .test-piezas .rejilla { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 520px) { .test-universos { grid-template-columns: 1fr; } .test-universos li { grid-template-columns: auto 1fr; align-items: baseline; gap: .8rem; text-align: left; padding: 1rem 1.1rem; } }
+@media (prefers-reduced-motion: reduce) { .test-progreso .lleno, .reparto-fila .lleno, .test-opcion { transition: none; } }

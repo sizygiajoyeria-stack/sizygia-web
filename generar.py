@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 
 SITE = Path(__file__).parent / "site"
-TEST = "https://sizygiatestt.netlify.app/"
+TEST = "/test"
 WA = "https://wa.me/34638292643"
 IG = "https://instagram.com/sizygia_"
 MAIL = "sizygia.joyeria@gmail.com"
@@ -523,6 +523,56 @@ def legal():
            "Aviso legal, política de privacidad y condiciones de venta de Sizygia.", cuerpo)
 
 
+def test():
+    reparto = "".join(f'<div class="reparto-fila" data-reparto="{k}"><span>{u["nombre"]}</span><output>0 %</output><span class="pista" aria-hidden="true"><span class="lleno"></span></span></div>' for k, u in UNIVERSOS.items())
+    cuerpo = f"""    <section class="test" data-test aria-live="polite">
+      <div class="envoltorio">
+        <div class="test-paso test-intro" data-paso="intro">
+          <h1 data-foco>¿Qué universo eres?</h1>
+          <p class="test-entradilla">Siete preguntas, dos minutos. Al final sabrás si eres Sol, Tierra o Luna, y qué piezas van contigo.</p>
+          <ul class="test-universos" aria-label="Los tres universos">
+            <li class="u-sol"><span>Sol</span><em>{UNIVERSOS['sol']['claves']}</em></li>
+            <li class="u-tierra"><span>Tierra</span><em>{UNIVERSOS['tierra']['claves']}</em></li>
+            <li class="u-luna"><span>Luna</span><em>{UNIVERSOS['luna']['claves']}</em></li>
+          </ul>
+          <button class="boton" type="button" data-empezar>Empezar el test</button>
+          <p class="test-nota">No pedimos ningún dato. Tu resultado se queda en tu pantalla.</p>
+        </div>
+        <div class="test-paso test-pregunta" data-paso="pregunta" hidden>
+          <div class="test-progreso"><span data-progreso>Pregunta 1 de 7</span><span class="pista" aria-hidden="true"><span class="lleno" data-barra></span></span></div>
+          <p class="test-tema" data-tema></p>
+          <h2 data-foco data-enunciado></h2>
+          <div class="test-opciones" data-opciones></div>
+          <button class="enlace-atras" type="button" data-atras hidden>Volver a la pregunta anterior</button>
+        </div>
+        <div class="test-paso test-resultado" data-paso="resultado" hidden>
+          <div class="test-tarjeta">
+            <p class="test-soy">Tu universo es</p>
+            <h2 class="test-nombre" data-foco data-nombre></h2>
+            <p class="test-frase" data-frase></p>
+            <p class="test-texto" data-texto></p>
+            <div class="reparto" aria-label="Tu reparto entre los tres universos">{reparto}</div>
+          </div>
+          <div class="test-acciones">
+            <a class="boton" data-ver href="/joyas">Ver el universo</a>
+            <button class="boton boton--contorno" type="button" data-compartir>Compartir mi resultado</button>
+            <button class="boton boton--contorno" type="button" data-descargar>Descargar imagen para historias</button>
+            <p class="aviso-test" data-aviso-compartir role="status" hidden></p>
+            <button class="enlace-atras" type="button" data-repetir>Repetir el test</button>
+          </div>
+          <div class="test-piezas">
+            <h3>Piezas para ti</h3>
+            <p data-piezas-texto></p>
+            <ul class="rejilla" data-piezas data-limite="4" data-universo=""></ul>
+          </div>
+        </div>
+      </div>
+    </section>"""
+    pagina("test.html", "¿Qué universo eres? Test de Sizygia",
+           "Siete preguntas para saber si eres Sol, Tierra o Luna y qué joyas de Sizygia van contigo.",
+           cuerpo, actual="/test", extra='<script src="/assets/js/test.js" defer></script>')
+
+
 def pedido_confirmado():
     cuerpo = f"""    <div class="texto" data-vaciar-bolsa><section class="seccion">
       <div class="contenedor">
@@ -570,6 +620,7 @@ if __name__ == "__main__":
     material()
     sobre()
     legal()
+    test()
     pedido_confirmado()
     error404()
     print("Páginas generadas en", SITE)
