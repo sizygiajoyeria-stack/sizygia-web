@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>¿Qué universo eres? Test de Sizygia</title>
+  <meta name="description" content="Siete preguntas para saber si eres Sol, Tierra o Luna y qué joyas de Sizygia van contigo.">
+  <meta property="og:title" content="¿Qué universo eres? Test de Sizygia">
+  <meta property="og:description" content="Siete preguntas para saber si eres Sol, Tierra o Luna y qué joyas de Sizygia van contigo.">
+  <meta property="og:image" content="https://sizygia.es/img/portada.jpg">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="preload" href="/assets/fonts/jost-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/cormorant-garamond-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/css/estilos.css">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/marca/apple-touch-icon.png">
+  <script src="/assets/js/tienda.js" defer></script>
+</head>
+<body>
+  <a class="saltar" href="#contenido">Ir al contenido</a>
+  <div class="anuncios" role="region" aria-label="Anuncios">
+    <p aria-hidden="false">Envío gratis desde 2 piezas</p>
+    <p aria-hidden="true">30 días para devolver, sin explicaciones</p>
+  </div>
+  <header class="cabecera">
+    <div class="envoltorio">
+      <div class="fila">
+        <div class="izq">
+          <button class="icono-btn solo-movil" type="button" data-abre="panel-menu" aria-controls="panel-menu" aria-expanded="false" aria-label="Menú"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg></button>
+          <a class="enlace-test" href="/test">¿Qué universo eres?</a>
+        </div>
+        <a class="logo" href="/" aria-label="Sizygia, inicio"><img src="/assets/marca/logo-marron.svg" alt="Sizygia" width="195" height="99"></a>
+        <div class="der">
+          <button class="icono-btn" type="button" data-abre="panel-bolsa" aria-controls="panel-bolsa" aria-expanded="false" data-etiqueta-bolsa aria-label="Bolsa"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg><span class="contador" data-n="0" aria-hidden="true">0</span></button>
+        </div>
+      </div>
+      <nav class="nav-escritorio" aria-label="Principal"><a href="/joyas">Todas las joyas</a><a href="/sol">Sol</a><a href="/tierra">Tierra</a><a href="/luna">Luna</a><span class="sep" aria-hidden="true"></span><a href="/joyas?tipo=pendientes">Pendientes</a><a href="/joyas?tipo=colgantes">Colgantes</a><a href="/joyas?tipo=pulseras">Pulseras</a><a href="/joyas?tipo=anillos">Anillos</a><span class="sep" aria-hidden="true"></span><a href="/como-comprar">Cómo comprar</a></nav>
+    </div>
+  </header>
+  <div class="progreso" role="status">
+    <div class="envoltorio"><span data-progreso-texto>Envío gratis desde 2 piezas</span><span class="pista" aria-hidden="true"><span class="lleno" data-progreso-lleno></span></span></div>
+  </div>
+  <main id="contenido">
+    <section class="test" data-test aria-live="polite">
+      <div class="envoltorio">
+        <div class="test-paso test-intro" data-paso="intro">
+          <h1 data-foco>¿Qué universo eres?</h1>
+          <p class="test-entradilla">Siete preguntas, dos minutos. Al final sabrás si eres Sol, Tierra o Luna, y qué piezas van contigo.</p>
+          <ul class="test-universos" aria-label="Los tres universos">
+            <li class="u-sol"><span>Sol</span><em>Calidez, presencia, acento.</em></li>
+            <li class="u-tierra"><span>Tierra</span><em>Cuerpo, raíz, tiempo lento.</em></li>
+            <li class="u-luna"><span>Luna</span><em>Misterio, intimidad, sofisticación.</em></li>
+          </ul>
+          <button class="boton" type="button" data-empezar>Empezar el test</button>
+          <p class="test-nota">No pedimos ningún dato. Tu resultado se queda en tu pantalla.</p>
+        </div>
+        <div class="test-paso test-pregunta" data-paso="pregunta" hidden>
+          <div class="test-progreso"><span data-progreso>Pregunta 1 de 7</span><span class="pista" aria-hidden="true"><span class="lleno" data-barra></span></span></div>
+          <p class="test-tema" data-tema></p>
+          <h2 data-foco data-enunciado></h2>
+          <div class="test-opciones" data-opciones></div>
+          <button class="enlace-atras" type="button" data-atras hidden>Volver a la pregunta anterior</button>
+        </div>
+        <div class="test-paso test-resultado" data-paso="resultado" hidden>
+          <div class="test-tarjeta">
+            <p class="test-soy">Tu universo es</p>
+            <h2 class="test-nombre" data-foco data-nombre></h2>
+            <p class="test-frase" data-frase></p>
+            <p class="test-texto" data-texto></p>
+            <div class="reparto" aria-label="Tu reparto entre los tres universos"><div class="reparto-fila" data-reparto="sol"><span>Sol</span><output>0 %</output><span class="pista" aria-hidden="true"><span class="lleno"></span></span></div><div class="reparto-fila" data-reparto="tierra"><span>Tierra</span><output>0 %</output><span class="pista" aria-hidden="true"><span class="lleno"></span></span></div><div class="reparto-fila" data-reparto="luna"><span>Luna</span><output>0 %</output><span class="pista" aria-hidden="true"><span class="lleno"></span></span></div></div>
+          </div>
+          <div class="test-acciones">
+            <a class="boton" data-ver href="/joyas">Ver el universo</a>
+            <button class="boton boton--contorno" type="button" data-compartir>Compartir mi resultado</button>
+            <button class="boton boton--contorno" type="button" data-descargar>Descargar imagen para historias</button>
+            <p class="aviso-test" data-aviso-compartir role="status" hidden></p>
+            <button class="enlace-atras" type="button" data-repetir>Repetir el test</button>
+          </div>
+          <div class="test-piezas">
+            <h3>Piezas para ti</h3>
+            <p data-piezas-texto></p>
+            <ul class="rejilla" data-piezas data-limite="4" data-universo=""></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="pie">
+    <div class="envoltorio">
+      <div class="columnas">
+        <div><img class="pie-logo" src="/assets/marca/logo-marron.svg" alt="Sizygia" width="195" height="99" loading="lazy"><p class="firma">Joyas seleccionadas una a una, para decir quién eres.</p></div>
+        <div><h2>Comprar</h2><ul>
+          <li><a href="/joyas">Todas las joyas</a></li>
+          <li><a href="/sol">Sol</a> · <a href="/tierra">Tierra</a> · <a href="/luna">Luna</a></li>
+          <li><a href="/test">¿Qué universo eres?</a></li>
+        </ul></div>
+        <div><h2>Ayuda</h2><ul>
+          <li><a href="/como-comprar">Cómo comprar</a></li>
+          <li><a href="/como-comprar#envios">Envíos</a></li>
+          <li><a href="/como-comprar#devoluciones">Devoluciones</a></li>
+          <li><a href="/material-y-cuidado">Material y cuidado</a></li>
+          <li><a href="/sobre">Sobre Sizygia</a></li>
+        </ul></div>
+        <div><h2>Hablemos</h2><ul>
+          <li><a href="https://wa.me/34638292643">WhatsApp</a></li>
+          <li><a href="https://instagram.com/sizygia_">Instagram @sizygia_</a></li>
+          <li><a href="mailto:sizygia.joyeria@gmail.com">sizygia.joyeria@gmail.com</a></li>
+        </ul></div>
+      </div>
+      <p class="legal">© 2026 Sizygia · Acero inoxidable 304L hipoalergénico · <a href="/legal">Aviso legal, privacidad y condiciones</a></p>
+    </div>
+  </footer>
+  <div class="velo" aria-hidden="true"></div>
+  <aside class="panel-lateral izquierda" id="panel-menu" role="dialog" aria-modal="true" aria-label="Menú" inert>
+    <div class="cab-panel"><h2>Menú</h2><button class="icono-btn" type="button" data-cierra aria-label="Cerrar menú"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+    <div class="cuerpo">
+      <p class="menu-titulo">Universos</p>
+      <ul class="menu-lista">
+        <li><a href="/sol"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>Sol</a></li><li><a href="/tierra"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M5 9.5c2.5-1.6 5-1.6 7.2 0s4.6 1.6 6.8 0M4.2 14c2.6 1.4 5.2 1.4 7.6 0s4.8-1.4 8 0"/></svg>Tierra</a></li><li><a href="/luna"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19.5 14.6A8 8 0 1 1 9.4 4.5a6.4 6.4 0 0 0 10.1 10.1Z"/></svg>Luna</a></li>
+      </ul>
+      <p class="menu-titulo">Joyas</p>
+      <ul class="menu-lista">
+        <li><a href="/joyas">Todas las joyas</a></li>
+        <li><a href="/joyas?tipo=pendientes">Pendientes</a></li><li><a href="/joyas?tipo=colgantes">Colgantes</a></li><li><a href="/joyas?tipo=pulseras">Pulseras</a></li><li><a href="/joyas?tipo=anillos">Anillos</a></li>
+      </ul>
+      <p class="menu-titulo">Más</p>
+      <ul class="menu-lista">
+        <li><a href="/test">¿Qué universo eres?</a></li><li><a href="/como-comprar">Cómo comprar</a></li><li><a href="/sobre">Sobre Sizygia</a></li>
+      </ul>
+    </div>
+  </aside>
+  <aside class="panel-lateral derecha" id="panel-bolsa" role="dialog" aria-modal="true" aria-label="Tu bolsa" inert>
+    <div class="cab-panel"><h2>Tu bolsa</h2><button class="icono-btn" type="button" data-cierra aria-label="Cerrar bolsa"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+    <div class="cuerpo" data-bolsa-cuerpo></div>
+    <div class="pie-panel" data-bolsa-pie hidden>
+      <p class="nota-bolsa" data-progreso-texto></p>
+      <div class="totales"></div>
+      <button class="boton boton--ancho" type="button" data-pagar data-texto="Pagar con tarjeta">Pagar con tarjeta</button>
+      <p class="aviso-pago" data-aviso-pago role="alert" hidden></p>
+      <p class="nota-bolsa">Pago seguro a través de Stripe. Recibes la confirmación por correo y te enviamos el pedido en 24-48 horas laborables.</p>
+      <p class="nota-bolsa"><a data-pedir href="https://wa.me/34638292643" target="_blank" rel="noopener">¿Dudas antes de comprar? Escríbenos por WhatsApp</a></p>
+    </div>
+  </aside>
+  <div class="aviso-flotante" role="status" aria-live="polite"></div>
+<script src="/assets/js/test.js" defer></script>
+</body>
+</html>
