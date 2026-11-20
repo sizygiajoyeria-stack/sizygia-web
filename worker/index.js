@@ -15,23 +15,19 @@ function json(data, status = 200) {
 
 async function catalogo(env, origen) {
   const res = await env.ASSETS.fetch(new URL("/data/catalogo.json", origen));
-  const { piezas, promo } = await res.json();
-  return { piezas, promo };
-}
-
-// Rebaja temporal: la hora es la del servidor, no la del navegador.
-function promoActiva(promo, ahora = Date.now()) {
-  return !!(promo && promo.activa && promo.descuento > 0 &&
-    ahora >= Date.parse(promo.inicio) && ahora <= Date.parse(promo.fin));
-}
-function centimos(precio, promo, activa) {
-  const base = Math.round(precio * 100);
-  return activa ? Math.round(base * (100 - promo.descuento) / 100) : base;
+  const { piezas } = await res.json();
+  return piezas;
 }
 
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+
+    // www.sizygia.es → sizygia.es (una sola dirección para buscadores y enlaces)
+    if (url.hostname.startsWith("www.")) {
+      url.hostname = url.hostname.slice(4);
+      return Response.redirect(url.toString(), 301);
+    }
 
     if (url.pathname !== "/api/checkout") {
       return env.ASSETS.fetch(request);
@@ -52,8 +48,7 @@ export default {
     const lineas = Array.isArray(entrada?.items) ? entrada.items : [];
     if (!lineas.length) return json({ error: "La bolsa está vacía" }, 400);
 
-    const { piezas, promo } = await catalogo(env, url.origin);
-    const rebaja = promoActiva(promo);
+    const piezas = await catalogo(env, url.origin);
     const total = lineas.reduce((s, l) => s + (Number(l.cantidad) || 0), 0);
     if (total < 1 || total > MAX_PIEZAS) return json({ error: "Cantidad no válida" }, 400);
 
@@ -84,8 +79,8 @@ export default {
       const variante = varianteElegida && pieza.variantes?.length > 1 ? ` (${varianteElegida})` : "";
       params.set(`line_items[${i}][quantity]`, String(cantidad));
       params.set(`line_items[${i}][price_data][currency]`, "eur");
-      params.set(`line_items[${i}][price_data][unit_amount]`, String(centimos(pieza.precio, promo, rebaja)));
-      params.set(`line_items[${i}][price_data][product_data][name]`, pieza.nombre + variante + (rebaja ? ` · ${promo.nombre} −${promo.descuento} %` : ""));
+      params.set(`line_items[${i}][price_data][unit_amount]`, String(Math.round(pieza.precio * 100)));
+      params.set(`line_items[${i}][price_data][product_data][name]`, pieza.nombre + variante);
     });
 
     const gratis = total >= ENVIO_GRATIS_DESDE;
