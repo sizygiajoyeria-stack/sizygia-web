@@ -78,7 +78,8 @@
   function entrar(nodo) {
     if (!nodo.animate) return;
     var reducir = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
-    nodo.animate(reducir ? [{ opacity: 0 }, { opacity: 1 }] : [{ opacity: 0, transform: "translateY(8px)" }, { opacity: 1, transform: "none" }], { duration: 220, easing: CURVA });
+    var a = nodo.animate(reducir ? [{ opacity: 0 }, { opacity: 1 }] : [{ opacity: 0, transform: "translateY(8px)" }, { opacity: 1, transform: "none" }], { duration: 220, easing: CURVA });
+    setTimeout(function () { a.finish(); }, 450); // nunca dejar la pregunta invisible
   }
   function mostrar(paso) {
     Object.keys(pasos).forEach(function (k) { pasos[k].hidden = k !== paso; });

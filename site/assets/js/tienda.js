@@ -68,13 +68,17 @@
       vieja.className = "foto-saliente"; vieja.alt = ""; vieja.setAttribute("aria-hidden", "true"); vieja.removeAttribute("loading");
       img.parentNode.appendChild(vieja);
       img.src = src; img.alt = alt;
-      vieja.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 220, easing: CURVA }).onfinish = function () { vieja.remove(); };
+      var quitarVieja = function () { if (vieja.parentNode) vieja.remove(); };
+      vieja.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 220, easing: CURVA }).onfinish = quitarVieja;
+      setTimeout(quitarVieja, 450); // por si la animación no llega a correr
     });
   }
   function quitarLinea(linea, accion) {
     if (!linea.animate || sinMovimiento()) { accion(); return; }
     linea.style.pointerEvents = "none";
-    linea.animate([{ opacity: 1, transform: "none" }, { opacity: 0, transform: "scale(.97)" }], { duration: 180, easing: CURVA, fill: "forwards" }).onfinish = accion;
+    var hecho = false, una = function () { if (!hecho) { hecho = true; accion(); } };
+    linea.animate([{ opacity: 1, transform: "none" }, { opacity: 0, transform: "scale(.97)" }], { duration: 180, easing: CURVA, fill: "forwards" }).onfinish = una;
+    setTimeout(una, 400); // por si la animación no llega a correr
   }
   function porId(id) { return piezas.filter(function (p) { return p.id === id; })[0]; }
   function euros(n) { return n.toLocaleString("es-ES", { style: "currency", currency: "EUR" }); }
