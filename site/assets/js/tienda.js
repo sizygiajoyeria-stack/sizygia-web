@@ -56,6 +56,26 @@
       el("span", { "class": "insignia", texto: "−" + promo.descuento + " %" })
     ]);
   }
+  // Movimiento: curva de la web y preferencia de movimiento reducido.
+  var CURVA = "cubic-bezier(.16, 1, .3, 1)";
+  function sinMovimiento() { return window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches; }
+  function cambiarFoto(img, src, alt) {
+    var nueva = new Image(); nueva.src = src;
+    var listo = nueva.decode ? nueva.decode().catch(function () {}) : Promise.resolve();
+    listo.then(function () {
+      if (!img.animate || !img.parentNode) { img.src = src; img.alt = alt; return; }
+      var vieja = img.cloneNode(false);
+      vieja.className = "foto-saliente"; vieja.alt = ""; vieja.setAttribute("aria-hidden", "true"); vieja.removeAttribute("loading");
+      img.parentNode.appendChild(vieja);
+      img.src = src; img.alt = alt;
+      vieja.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 220, easing: CURVA }).onfinish = function () { vieja.remove(); };
+    });
+  }
+  function quitarLinea(linea, accion) {
+    if (!linea.animate || sinMovimiento()) { accion(); return; }
+    linea.style.pointerEvents = "none";
+    linea.animate([{ opacity: 1, transform: "none" }, { opacity: 0, transform: "scale(.97)" }], { duration: 180, easing: CURVA, fill: "forwards" }).onfinish = accion;
+  }
   function porId(id) { return piezas.filter(function (p) { return p.id === id; })[0]; }
   function euros(n) { return n.toLocaleString("es-ES", { style: "currency", currency: "EUR" }); }
   function foto(src, w) { return /cdn\.shopify\.com/.test(src) && src.indexOf("?") < 0 ? src + "?width=" + w : src; }
@@ -131,11 +151,14 @@
         el("button", { type: "button", "aria-label": "Añadir una", texto: "+" })
       ]);
       var bs = cant.querySelectorAll("button");
-      bs[0].addEventListener("click", function () { l.cantidad -= 1; if (l.cantidad < 1) bolsa.splice(i, 1); guardar(); pintarBolsa(); });
+      bs[0].addEventListener("click", function () {
+        if (l.cantidad > 1) { l.cantidad -= 1; guardar(); pintarBolsa(); return; }
+        quitarLinea(linea, function () { bolsa.splice(bolsa.indexOf(l), 1); guardar(); pintarBolsa(); });
+      });
       bs[1].addEventListener("click", function () { l.cantidad += 1; guardar(); pintarBolsa(); });
       var quitar = el("button", { type: "button", "class": "quitar", texto: "Quitar" });
-      quitar.addEventListener("click", function () { bolsa.splice(i, 1); guardar(); pintarBolsa(); });
-      cuerpo.appendChild(el("div", { "class": "linea" }, [
+      quitar.addEventListener("click", function () { quitarLinea(linea, function () { bolsa.splice(bolsa.indexOf(l), 1); guardar(); pintarBolsa(); }); });
+      var linea = el("div", { "class": "linea" }, [
         el("img", { src: foto(fotoVariante(p, l.variante), 200), alt: "", width: "72", height: "90" }),
         el("div", {}, [
           el("a", { "class": "n", href: "/pieza?p=" + p.id, texto: p.nombre }),
@@ -143,7 +166,8 @@
           cant, quitar
         ]),
         el("div", { "class": "p", texto: euros(p.precio * l.cantidad) })
-      ]));
+      ]);
+      cuerpo.appendChild(linea);
     });
     var e = envio();
     var tot = pie.querySelector(".totales");
@@ -292,6 +316,18 @@
     ]);
   }
 
+  // Portada: las piezas de cada universo entran escalonadas la primera vez que se ven.
+  function prepararEntrada(ul) {
+    if (ul.hasAttribute("data-entrada") || !ul.closest(".capitulo") || !("IntersectionObserver" in window) || sinMovimiento()) return;
+    ul.setAttribute("data-entrada", "");
+    ul.classList.add("por-entrar");
+    var io = new IntersectionObserver(function (en) {
+      if (!en[0].isIntersecting) return;
+      io.disconnect();
+      requestAnimationFrame(function () { ul.classList.remove("por-entrar"); });
+    }, { rootMargin: "0px 0px -15% 0px" });
+    io.observe(ul);
+  }
   function pintarListas() {
     var q = new URLSearchParams(location.search);
     document.querySelectorAll("[data-piezas]").forEach(function (ul) {
@@ -306,6 +342,7 @@
       if (limite) lista = lista.slice(0, limite);
       ul.innerHTML = "";
       lista.forEach(function (p) { ul.appendChild(tarjeta(p)); });
+      prepararEntrada(ul);
       var r = document.querySelector('[data-recuento="' + (ul.id || "") + '"]');
       if (r) r.textContent = lista.length === 1 ? "1 pieza" : lista.length + " piezas";
       if (!lista.length) ul.replaceWith(el("div", { "class": "vacio" }, [el("p", { texto: "No hay piezas de este tipo todavía." }), el("a", { "class": "boton boton--contorno", href: "/joyas", texto: "Ver todas las joyas" })]));
@@ -358,7 +395,7 @@
     function mostrarVariante(v) {
       if (v.foto === undefined) return;
       var principal = gal.querySelector("figure img");
-      if (principal) { principal.src = foto(p.imagenes[v.foto], 1400); principal.alt = p.alt + ", acabado " + v.nombre.toLowerCase(); }
+      if (principal) cambiarFoto(principal, foto(p.imagenes[v.foto], 1400), p.alt + ", acabado " + v.nombre.toLowerCase());
       gal.scrollTo({ left: 0, behavior: "smooth" });
     }
     var anadirBtn = el("button", { "class": "boton boton--ancho", type: "button", html: agotada ? "Agotada" : I.bolsa + "<span>Añadir a la bolsa, " + euros(p.precio) + "</span>" });

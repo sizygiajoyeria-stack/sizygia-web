@@ -74,8 +74,15 @@
   var actual = 0;
   var resultado = null;
 
+  var CURVA = "cubic-bezier(.16, 1, .3, 1)";
+  function entrar(nodo) {
+    if (!nodo.animate) return;
+    var reducir = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    nodo.animate(reducir ? [{ opacity: 0 }, { opacity: 1 }] : [{ opacity: 0, transform: "translateY(8px)" }, { opacity: 1, transform: "none" }], { duration: 220, easing: CURVA });
+  }
   function mostrar(paso) {
     Object.keys(pasos).forEach(function (k) { pasos[k].hidden = k !== paso; });
+    entrar(pasos[paso]);
     var foco = pasos[paso].querySelector("[data-foco]");
     if (foco) { foco.setAttribute("tabindex", "-1"); foco.focus({ preventScroll: true }); }
     raiz.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
