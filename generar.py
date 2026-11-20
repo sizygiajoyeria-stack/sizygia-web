@@ -75,10 +75,8 @@ UNIVERSOS = {
 def pagina(ruta, titulo, descripcion, cuerpo, universo="", actual="", imagen_og="https://sizygia.es/img/portada.jpg", extra=""):
     def a(h, t):
         return f'<a href="{h}"{" aria-current=\"page\"" if h == actual else ""}>{t}</a>'
-    nav = (a("/joyas", "Todas las joyas") + a("/sol", "Sol") + a("/tierra", "Tierra") + a("/luna", "Luna")
-           + '<span class="sep" aria-hidden="true"></span>'
-           + "".join(a(f"/joyas?tipo={s}", n) for s, n, _ in TIPOS)
-           + '<span class="sep" aria-hidden="true"></span>' + a("/como-comprar", "Cómo comprar"))
+    nav = (a("/joyas", "Joyas") + a("/sol", "Sol") + a("/tierra", "Tierra") + a("/luna", "Luna")
+           + a("/test", "El test") + a("/como-comprar", "Cómo comprar"))
     uni = f' data-universo="{universo}"' if universo else ""
     html = f"""<!doctype html>
 <html lang="es">
@@ -91,7 +89,7 @@ def pagina(ruta, titulo, descripcion, cuerpo, universo="", actual="", imagen_og=
   <meta property="og:description" content="{descripcion}">
   <meta property="og:image" content="{imagen_og}">
   <meta property="og:type" content="website">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#fbf8f3">
   <link rel="preload" href="/assets/fonts/jost-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/cormorant-garamond-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/estilos.css">
@@ -106,23 +104,13 @@ def pagina(ruta, titulo, descripcion, cuerpo, universo="", actual="", imagen_og=
     <p aria-hidden="true">30 días para devolver, sin explicaciones</p>
   </div>
   <header class="cabecera">
-    <div class="envoltorio">
-      <div class="fila">
-        <div class="izq">
-          <button class="icono-btn solo-movil" type="button" data-abre="panel-menu" aria-controls="panel-menu" aria-expanded="false" aria-label="Menú">{I_MENU}</button>
-          <a class="enlace-test" href="{TEST}">¿Qué universo eres?</a>
-        </div>
-        <a class="logo" href="/" aria-label="Sizygia, inicio"><img src="/assets/marca/logo-marron.svg" alt="Sizygia" width="195" height="99"></a>
-        <div class="der">
-          <button class="icono-btn" type="button" data-abre="panel-bolsa" aria-controls="panel-bolsa" aria-expanded="false" data-etiqueta-bolsa aria-label="Bolsa">{I_BOLSA}<span class="contador" data-n="0" aria-hidden="true">0</span></button>
-        </div>
-      </div>
+    <div class="envoltorio fila">
+      <button class="icono-btn solo-movil" type="button" data-abre="panel-menu" aria-controls="panel-menu" aria-expanded="false" aria-label="Menú">{I_MENU}</button>
+      <a class="logo" href="/" aria-label="Sizygia, inicio"><img src="/assets/marca/logo-marron.svg" alt="Sizygia" width="195" height="99"></a>
       <nav class="nav-escritorio" aria-label="Principal">{nav}</nav>
+      <button class="icono-btn bolsa-btn" type="button" data-abre="panel-bolsa" aria-controls="panel-bolsa" aria-expanded="false" data-etiqueta-bolsa aria-label="Bolsa">{I_BOLSA}<span class="contador" data-n="0" aria-hidden="true">0</span></button>
     </div>
   </header>
-  <div class="progreso" role="status">
-    <div class="envoltorio"><span data-progreso-texto>Envío gratis desde 2 piezas</span><span class="pista" aria-hidden="true"><span class="lleno" data-progreso-lleno></span></span></div>
-  </div>
   <main id="contenido">
 {cuerpo}
   </main>
@@ -132,7 +120,9 @@ def pagina(ruta, titulo, descripcion, cuerpo, universo="", actual="", imagen_og=
         <div><img class="pie-logo" src="/assets/marca/logo-marron.svg" alt="Sizygia" width="195" height="99" loading="lazy"><p class="firma">Joyas seleccionadas una a una, para decir quién eres.</p></div>
         <div><h2>Comprar</h2><ul>
           <li><a href="/joyas">Todas las joyas</a></li>
-          <li><a href="/sol">Sol</a> · <a href="/tierra">Tierra</a> · <a href="/luna">Luna</a></li>
+          <li><a href="/sol">Sol</a></li>
+          <li><a href="/tierra">Tierra</a></li>
+          <li><a href="/luna">Luna</a></li>
           <li><a href="{TEST}">¿Qué universo eres?</a></li>
         </ul></div>
         <div><h2>Ayuda</h2><ul>
@@ -148,7 +138,7 @@ def pagina(ruta, titulo, descripcion, cuerpo, universo="", actual="", imagen_og=
           <li><a href="mailto:{MAIL}">{MAIL}</a></li>
         </ul></div>
       </div>
-      <p class="legal">© 2026 Sizygia · Acero inoxidable 304L hipoalergénico · <a href="/legal">Aviso legal, privacidad y condiciones</a></p>
+      <div class="legal"><p>© 2026 Sizygia</p><p>Acero inoxidable 304L hipoalergénico</p><p><a href="/legal">Aviso legal, privacidad y condiciones</a></p></div>
     </div>
   </footer>
   <div class="velo" aria-hidden="true"></div>
@@ -193,60 +183,55 @@ def pagina(ruta, titulo, descripcion, cuerpo, universo="", actual="", imagen_og=
 
 
 def portada():
-    tiles = "".join(f'<li><a href="/{k}"><div class="foto"><img src="{FOTOS[k]}" alt="{u["alt"]}" loading="lazy" width="400" height="500"></div><span>{u["nombre"]}</span></a></li>' for k, u in UNIVERSOS.items())
-    tiles += "".join(f'<li><a href="/joyas?tipo={s}"><div class="foto"><img src="{foto_tipo(t)}" alt="" loading="lazy" width="400" height="500"></div><span>{n}</span></a></li>' for s, n, t in TIPOS)
-    trip = "".join(f'<a href="/{k}"><img src="{FOTOS[k]}" alt="{u["alt"]}" loading="lazy" width="900" height="1260"><span class="texto-t"><span class="nombre-u">{u["nombre"]}</span><span class="lema-u">{u["lema"]}</span></span></a>' for k, u in UNIVERSOS.items())
-    mosaico = "".join(f'<a href="{IG}" aria-label="Ver en Instagram"><img src="{src}" alt="" loading="lazy" width="300" height="300"></a>' for src in INSTAGRAM)
-    cuerpo = f"""    <section class="hero" aria-labelledby="t-hero">
-      <img src="{FOTOS['portada']}" alt="Tres personas charlando sentadas al sol en unas escaleras" width="2200" height="1467" fetchpriority="high">
-      <div class="envoltorio">
-        <h1 id="t-hero">Elige qué dice de ti.</h1>
-        <p>Joyas de acero hipoalergénico, seleccionadas una a una y ordenadas en tres universos.</p>
-        <div class="botones"><a class="boton boton--claro" href="/joyas">Ver las joyas</a><a class="boton boton--sobre-foto" href="{TEST}">¿Qué universo eres?</a></div>
-      </div>
-    </section>
-
-    <section class="bloque" aria-labelledby="t-cat">
-      <div class="envoltorio">
-        <div class="cab-bloque"><h2 id="t-cat">Busca por universo o por pieza</h2></div>
-        <ul class="categorias">{tiles}</ul>
-      </div>
-    </section>
-
-    <section class="bloque bloque--surface" data-carril aria-labelledby="t-fav">
-      <div class="envoltorio">
-        <div class="cab-bloque">
-          <div><h2 id="t-fav">Las que más se llevan</h2><p>Pásalas el dedo: cada una tiene más fotos.</p></div>
-          <div class="flechas"><button type="button" data-mover="-1" aria-label="Anteriores">{I_IZQ}</button><button type="button" data-mover="1" aria-label="Siguientes">{I_DER}</button></div>
+    franjas = "".join(f'''<li class="franja franja--{k}">
+          <a href="#capitulo-{k}">
+            <span class="franja-foto"><img src="{FOTOS[k]}" alt="{u['alt']}" width="900" height="1125"{' fetchpriority="high"' if k == 'sol' else ''}></span>
+            <span class="franja-nombre">{u['nombre']}</span>
+            <span class="franja-lema">{u['lema']}</span>
+          </a>
+        </li>''' for k, u in UNIVERSOS.items())
+    capitulos = "".join(f'''
+    <section class="capitulo capitulo--{k}" id="capitulo-{k}" aria-labelledby="t-{k}">
+      <div class="envoltorio capitulo-rejilla">
+        <div class="capitulo-texto">
+          <h2 id="t-{k}">{u['nombre']}</h2>
+          <p class="capitulo-lema">{u['lema']}</p>
+          <p class="capitulo-retrato">{u['retrato']}</p>
+          <p class="capitulo-claves">{u['claves']}</p>
+          <a class="boton boton--contorno" href="/{k}">Todo {u['nombre']}</a>
         </div>
-        <ul class="carril" data-piezas></ul>
-        <p class="pie-bloque"><a class="boton boton--contorno" href="/joyas">Ver todas las joyas</a></p>
+        <ul class="rejilla capitulo-piezas" data-piezas data-universo="{k}" data-limite="3"></ul>
+      </div>
+    </section>''' for k, u in UNIVERSOS.items())
+    mosaico = "".join(f'<a href="{IG}" aria-label="Ver en Instagram"><img src="{src}" alt="" loading="lazy" width="300" height="300"></a>' for src in INSTAGRAM[:4])
+    cuerpo = f"""    <section class="portada" aria-labelledby="t-hero">
+      <div class="envoltorio">
+        <div class="portada-cab">
+          <h1 id="t-hero">Elige qué dice de ti.</h1>
+          <p>Joyas de acero hipoalergénico, seleccionadas una a una en tres universos.</p>
+          <div class="botones"><a class="boton" href="/joyas">Ver las joyas</a><a class="enlace-suave" href="{TEST}">¿No lo tienes claro? Haz el test</a></div>
+        </div>
+        <ul class="franjas" aria-label="Los tres universos">{franjas}</ul>
       </div>
     </section>
+{capitulos}
 
-    <section class="bloque" aria-labelledby="t-uni">
+    <section class="seccion" aria-labelledby="t-ig">
       <div class="envoltorio">
-        <div class="cab-bloque"><div><h2 id="t-uni">Tres universos. ¿Cuál es el tuyo?</h2><p>No son colecciones de temporada: son tres formas de ser.</p></div></div>
-        <div class="triptico">{trip}</div>
-      </div>
-    </section>
-
-    <section class="bloque bloque--surface" aria-label="Garantías">
-      <div class="envoltorio"><ul class="garantias">{garantias_html()}</ul></div>
-    </section>
-
-    <section class="bloque" aria-labelledby="t-ig">
-      <div class="envoltorio">
-        <div class="cab-bloque"><div><h2 id="t-ig">Llevadas de verdad</h2><p>Así quedan puestas. Más en <a class="enlace" href="{IG}">@sizygia_</a>.</p></div></div>
+        <div class="seccion-cab"><h2 id="t-ig">Llevadas de verdad</h2><p>Así quedan puestas. Más en <a class="enlace" href="{IG}">@sizygia_</a>.</p></div>
         <div class="mosaico">{mosaico}</div>
       </div>
     </section>
 
-    <section class="banda-test" aria-labelledby="t-test">
+    <section class="seccion seccion--superficie" aria-labelledby="t-pagas">
       <div class="envoltorio">
-        <svg viewBox="0 0 120 60" aria-hidden="true"><line x1="0" y1="30" x2="120" y2="30" stroke="#b8965a"/><circle cx="34" cy="30" r="22" fill="#b8965a"/><circle cx="72" cy="30" r="12" fill="#fff" stroke="#08060e" stroke-width="1.5"/><circle cx="102" cy="30" r="7" fill="#08060e"/></svg>
-        <div><h2 id="t-test">¿Sol, Tierra o Luna?</h2><p>Cinco preguntas y dos minutos para saber qué universo eres y qué piezas van contigo.</p></div>
-        <a class="boton" href="{TEST}">Haz el test</a>
+        <div class="seccion-cab"><h2 id="t-pagas">Lo que pagas, explicado</h2><p>Sin letra pequeña. Esto es lo que hay detrás de cada precio.</p></div>
+        <dl class="hechos">
+          <div><dt>304L</dt><dd><strong>Acero inoxidable hipoalergénico.</strong> No se oxida ni destiñe. <a class="enlace" href="/material-y-cuidado">Material y cuidado</a></dd></div>
+          <div><dt>3,95 €</dt><dd><strong>Envío a toda España.</strong> Gratis desde 2 piezas.</dd></div>
+          <div><dt>30 días</dt><dd><strong>Para devolverla sin explicaciones.</strong> <a class="enlace" href="/como-comprar#devoluciones">Cómo devolver</a></dd></div>
+          <div><dt>Stripe</dt><dd><strong>Pago seguro con tarjeta.</strong> No vemos ni guardamos tus datos. También en mano, en nuestros puestos.</dd></div>
+        </dl>
       </div>
     </section>"""
     pagina("index.html", "Sizygia · Joyas de acero hipoalergénico por universo: Sol, Tierra y Luna",
