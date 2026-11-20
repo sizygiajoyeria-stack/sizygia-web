@@ -563,3 +563,16 @@ p { margin: 0 0 1em; text-wrap: pretty; }
 .boton--contorno:hover { background: var(--ebano); border-color: var(--ebano); color: var(--marfil); }
 .capitulo--luna .tarjeta .anadir { color: var(--obsidiana); }
 .capitulo--luna .tarjeta .anadir:hover { background: var(--obsidiana); color: var(--marfil); }
+
+/* Rebaja temporal (Black Week) */
+.precio.rebajado { display: flex; flex-wrap: wrap; align-items: baseline; gap: .1rem .45rem; }
+.precio.rebajado del { color: var(--text-muted); font-weight: 400; font-size: .85em; }
+.precio.rebajado .insignia { background: var(--obsidiana); color: var(--marfil); font-size: .75rem; font-weight: 500; padding: .15rem .45rem; border-radius: var(--r-sm); }
+.promo-banda { background: var(--obsidiana); color: var(--marfil); text-align: center; padding: clamp(2.5rem, 5vw, 4rem) 1.25rem; display: grid; justify-items: center; gap: .7rem; }
+.promo-banda .promo-tit { font-family: var(--display); font-weight: 400; font-size: clamp(1.8rem, 4vw, 2.8rem); line-height: 1.1; margin: 0; color: var(--marfil); }
+.promo-banda .promo-txt { max-width: 36rem; margin: 0; color: var(--noche-suave); }
+.promo-banda .promo-reloj { margin: 0; color: var(--oro); font-variant-numeric: tabular-nums; }
+.promo-banda .boton { margin-top: .5rem; }
+.promo-banda .boton--claro { background: var(--marfil); color: var(--obsidiana); border-color: var(--marfil); }
+.promo-banda .boton--claro:hover { background: var(--oro); border-color: var(--oro); color: var(--obsidiana); }
+.promo-banda :focus-visible { outline-color: var(--focus-claro); }
