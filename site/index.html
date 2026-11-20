@@ -9,7 +9,7 @@
   <meta property="og:description" content="Tienda de joyas de acero 304L hipoalergénico, seleccionadas una a una en tres universos: Sol, Tierra y Luna. Envío gratis desde 2 piezas.">
   <meta property="og:image" content="https://sizygia.es/img/portada.jpg">
   <meta property="og:type" content="website">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#fbf8f3">
   <link rel="preload" href="/assets/fonts/jost-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/cormorant-garamond-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/estilos.css">
@@ -24,74 +24,96 @@
     <p aria-hidden="true">30 días para devolver, sin explicaciones</p>
   </div>
   <header class="cabecera">
-    <div class="envoltorio">
-      <div class="fila">
-        <div class="izq">
-          <button class="icono-btn solo-movil" type="button" data-abre="panel-menu" aria-controls="panel-menu" aria-expanded="false" aria-label="Menú"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg></button>
-          <a class="enlace-test" href="/test">¿Qué universo eres?</a>
-        </div>
-        <a class="logo" href="/" aria-label="Sizygia, inicio"><img src="/assets/marca/logo-marron.svg" alt="Sizygia" width="195" height="99"></a>
-        <div class="der">
-          <button class="icono-btn" type="button" data-abre="panel-bolsa" aria-controls="panel-bolsa" aria-expanded="false" data-etiqueta-bolsa aria-label="Bolsa"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg><span class="contador" data-n="0" aria-hidden="true">0</span></button>
-        </div>
-      </div>
-      <nav class="nav-escritorio" aria-label="Principal"><a href="/joyas">Todas las joyas</a><a href="/sol">Sol</a><a href="/tierra">Tierra</a><a href="/luna">Luna</a><span class="sep" aria-hidden="true"></span><a href="/joyas?tipo=pendientes">Pendientes</a><a href="/joyas?tipo=colgantes">Colgantes</a><a href="/joyas?tipo=pulseras">Pulseras</a><a href="/joyas?tipo=anillos">Anillos</a><span class="sep" aria-hidden="true"></span><a href="/como-comprar">Cómo comprar</a></nav>
+    <div class="envoltorio fila">
+      <button class="icono-btn solo-movil" type="button" data-abre="panel-menu" aria-controls="panel-menu" aria-expanded="false" aria-label="Menú"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg></button>
+      <a class="logo" href="/" aria-label="Sizygia, inicio"><img src="/assets/marca/logo-marron.svg" alt="Sizygia" width="195" height="99"></a>
+      <nav class="nav-escritorio" aria-label="Principal"><a href="/joyas">Joyas</a><a href="/sol">Sol</a><a href="/tierra">Tierra</a><a href="/luna">Luna</a><a href="/test">El test</a><a href="/como-comprar">Cómo comprar</a></nav>
+      <button class="icono-btn bolsa-btn" type="button" data-abre="panel-bolsa" aria-controls="panel-bolsa" aria-expanded="false" data-etiqueta-bolsa aria-label="Bolsa"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg><span class="contador" data-n="0" aria-hidden="true">0</span></button>
     </div>
   </header>
-  <div class="progreso" role="status">
-    <div class="envoltorio"><span data-progreso-texto>Envío gratis desde 2 piezas</span><span class="pista" aria-hidden="true"><span class="lleno" data-progreso-lleno></span></span></div>
-  </div>
   <main id="contenido">
-    <section class="hero" aria-labelledby="t-hero">
-      <img src="/img/portada.jpg" alt="Tres personas charlando sentadas al sol en unas escaleras" width="2200" height="1467" fetchpriority="high">
+    <section class="portada" aria-labelledby="t-hero">
       <div class="envoltorio">
-        <h1 id="t-hero">Elige qué dice de ti.</h1>
-        <p>Joyas de acero hipoalergénico, seleccionadas una a una y ordenadas en tres universos.</p>
-        <div class="botones"><a class="boton boton--claro" href="/joyas">Ver las joyas</a><a class="boton boton--sobre-foto" href="/test">¿Qué universo eres?</a></div>
-      </div>
-    </section>
-
-    <section class="bloque" aria-labelledby="t-cat">
-      <div class="envoltorio">
-        <div class="cab-bloque"><h2 id="t-cat">Busca por universo o por pieza</h2></div>
-        <ul class="categorias"><li><a href="/sol"><div class="foto"><img src="/img/sol.jpg" alt="Colgante Sol irregular entre sombras de hojas" loading="lazy" width="400" height="500"></div><span>Sol</span></a></li><li><a href="/tierra"><div class="foto"><img src="/img/tierra.jpg" alt="Colgantes con piedra natural colgados de una rama seca" loading="lazy" width="400" height="500"></div><span>Tierra</span></a></li><li><a href="/luna"><div class="foto"><img src="/img/luna.jpg" alt="Pulsera Escamas de luna y pendientes Gotas de luna sobre seda negra" loading="lazy" width="400" height="500"></div><span>Luna</span></a></li><li><a href="/joyas?tipo=pendientes"><div class="foto"><img src="/img/pendientes-sol-1.jpg" alt="" loading="lazy" width="400" height="500"></div><span>Pendientes</span></a></li><li><a href="/joyas?tipo=colgantes"><div class="foto"><img src="/img/colgante-sol-irregular-1.jpg" alt="" loading="lazy" width="400" height="500"></div><span>Colgantes</span></a></li><li><a href="/joyas?tipo=pulseras"><div class="foto"><img src="/img/pulsera-sol-irregular-1.jpg" alt="" loading="lazy" width="400" height="500"></div><span>Pulseras</span></a></li><li><a href="/joyas?tipo=anillos"><div class="foto"><img src="/img/rayos-de-luz-1.jpg" alt="" loading="lazy" width="400" height="500"></div><span>Anillos</span></a></li></ul>
-      </div>
-    </section>
-
-    <section class="bloque bloque--surface" data-carril aria-labelledby="t-fav">
-      <div class="envoltorio">
-        <div class="cab-bloque">
-          <div><h2 id="t-fav">Las que más se llevan</h2><p>Pásalas el dedo: cada una tiene más fotos.</p></div>
-          <div class="flechas"><button type="button" data-mover="-1" aria-label="Anteriores"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><button type="button" data-mover="1" aria-label="Siguientes"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button></div>
+        <div class="portada-cab">
+          <h1 id="t-hero">Elige qué dice de ti.</h1>
+          <p>Joyas de acero hipoalergénico, seleccionadas una a una en tres universos.</p>
+          <div class="botones"><a class="boton" href="/joyas">Ver las joyas</a><a class="enlace-suave" href="/test">¿No lo tienes claro? Haz el test</a></div>
         </div>
-        <ul class="carril" data-piezas></ul>
-        <p class="pie-bloque"><a class="boton boton--contorno" href="/joyas">Ver todas las joyas</a></p>
+        <ul class="franjas" aria-label="Los tres universos"><li class="franja franja--sol">
+          <a href="#capitulo-sol">
+            <span class="franja-foto"><img src="/img/sol.jpg" alt="Colgante Sol irregular entre sombras de hojas" width="900" height="1125" fetchpriority="high"></span>
+            <span class="franja-nombre">Sol</span>
+            <span class="franja-lema">Para quien brilla aunque no lo busque.</span>
+          </a>
+        </li><li class="franja franja--tierra">
+          <a href="#capitulo-tierra">
+            <span class="franja-foto"><img src="/img/tierra.jpg" alt="Colgantes con piedra natural colgados de una rama seca" width="900" height="1125"></span>
+            <span class="franja-nombre">Tierra</span>
+            <span class="franja-lema">Para quien lleva el otoño dentro.</span>
+          </a>
+        </li><li class="franja franja--luna">
+          <a href="#capitulo-luna">
+            <span class="franja-foto"><img src="/img/luna.jpg" alt="Pulsera Escamas de luna y pendientes Gotas de luna sobre seda negra" width="900" height="1125"></span>
+            <span class="franja-nombre">Luna</span>
+            <span class="franja-lema">Para las noches que importan.</span>
+          </a>
+        </li></ul>
       </div>
     </section>
 
-    <section class="bloque" aria-labelledby="t-uni">
-      <div class="envoltorio">
-        <div class="cab-bloque"><div><h2 id="t-uni">Tres universos. ¿Cuál es el tuyo?</h2><p>No son colecciones de temporada: son tres formas de ser.</p></div></div>
-        <div class="triptico"><a href="/sol"><img src="/img/sol.jpg" alt="Colgante Sol irregular entre sombras de hojas" loading="lazy" width="900" height="1260"><span class="texto-t"><span class="nombre-u">Sol</span><span class="lema-u">Para quien brilla aunque no lo busque.</span></span></a><a href="/tierra"><img src="/img/tierra.jpg" alt="Colgantes con piedra natural colgados de una rama seca" loading="lazy" width="900" height="1260"><span class="texto-t"><span class="nombre-u">Tierra</span><span class="lema-u">Para quien lleva el otoño dentro.</span></span></a><a href="/luna"><img src="/img/luna.jpg" alt="Pulsera Escamas de luna y pendientes Gotas de luna sobre seda negra" loading="lazy" width="900" height="1260"><span class="texto-t"><span class="nombre-u">Luna</span><span class="lema-u">Para las noches que importan.</span></span></a></div>
+    <section class="capitulo capitulo--sol" id="capitulo-sol" aria-labelledby="t-sol">
+      <div class="envoltorio capitulo-rejilla">
+        <div class="capitulo-texto">
+          <h2 id="t-sol">Sol</h2>
+          <p class="capitulo-lema">Para quien brilla aunque no lo busque.</p>
+          <p class="capitulo-retrato">Alegre, segura y natural. Rompe el hielo sin proponérselo y hace que la gente se sienta vista.</p>
+          <p class="capitulo-claves">Calidez, presencia, acento.</p>
+          <a class="boton boton--contorno" href="/sol">Todo Sol</a>
+        </div>
+        <ul class="rejilla capitulo-piezas" data-piezas data-universo="sol" data-limite="3"></ul>
+      </div>
+    </section>
+    <section class="capitulo capitulo--tierra" id="capitulo-tierra" aria-labelledby="t-tierra">
+      <div class="envoltorio capitulo-rejilla">
+        <div class="capitulo-texto">
+          <h2 id="t-tierra">Tierra</h2>
+          <p class="capitulo-lema">Para quien lleva el otoño dentro.</p>
+          <p class="capitulo-retrato">Transmite hogar. Escucha antes de hablar y da confianza sin explicarse.</p>
+          <p class="capitulo-claves">Cuerpo, raíz, tiempo lento.</p>
+          <a class="boton boton--contorno" href="/tierra">Todo Tierra</a>
+        </div>
+        <ul class="rejilla capitulo-piezas" data-piezas data-universo="tierra" data-limite="3"></ul>
+      </div>
+    </section>
+    <section class="capitulo capitulo--luna" id="capitulo-luna" aria-labelledby="t-luna">
+      <div class="envoltorio capitulo-rejilla">
+        <div class="capitulo-texto">
+          <h2 id="t-luna">Luna</h2>
+          <p class="capitulo-lema">Para las noches que importan.</p>
+          <p class="capitulo-retrato">Observadora e independiente. Se fía de su instinto y dice lo que nadie se atreve a decir.</p>
+          <p class="capitulo-claves">Misterio, intimidad, sofisticación.</p>
+          <a class="boton boton--contorno" href="/luna">Todo Luna</a>
+        </div>
+        <ul class="rejilla capitulo-piezas" data-piezas data-universo="luna" data-limite="3"></ul>
       </div>
     </section>
 
-    <section class="bloque bloque--surface" aria-label="Garantías">
-      <div class="envoltorio"><ul class="garantias"><li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c3 3.5 6 6.6 6 10a6 6 0 0 1-12 0c0-3.4 3-6.5 6-10Z"/></svg><div><strong>Hipoalergénica</strong><span>Acero 304L: no se oxida ni destiñe</span></div></li><li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.6"/><circle cx="17.5" cy="17.5" r="1.6"/></svg><div><strong>Envío 3,95 €</strong><span>Gratis desde 2 piezas</span></div></li><li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h11a5 5 0 0 1 0 10H8"/><path d="M8 5 4 9l4 4"/></svg><div><strong>30 días</strong><span>Para devolverla sin explicaciones</span></div></li><li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5 5 6v5.5c0 4.2 3 7.6 7 9 4-1.4 7-4.8 7-9V6Z"/><path d="M9 12l2 2 4-4"/></svg><div><strong>Pago seguro</strong><span>Con tarjeta (Stripe) o en mano</span></div></li></ul></div>
-    </section>
-
-    <section class="bloque" aria-labelledby="t-ig">
+    <section class="seccion" aria-labelledby="t-ig">
       <div class="envoltorio">
-        <div class="cab-bloque"><div><h2 id="t-ig">Llevadas de verdad</h2><p>Así quedan puestas. Más en <a class="enlace" href="https://instagram.com/sizygia_">@sizygia_</a>.</p></div></div>
-        <div class="mosaico"><a href="https://instagram.com/sizygia_" aria-label="Ver en Instagram"><img src="/img/instagram-1.jpg" alt="" loading="lazy" width="300" height="300"></a><a href="https://instagram.com/sizygia_" aria-label="Ver en Instagram"><img src="/img/instagram-2.jpg" alt="" loading="lazy" width="300" height="300"></a><a href="https://instagram.com/sizygia_" aria-label="Ver en Instagram"><img src="/img/instagram-3.jpg" alt="" loading="lazy" width="300" height="300"></a><a href="https://instagram.com/sizygia_" aria-label="Ver en Instagram"><img src="/img/instagram-4.jpg" alt="" loading="lazy" width="300" height="300"></a><a href="https://instagram.com/sizygia_" aria-label="Ver en Instagram"><img src="/img/instagram-5.jpg" alt="" loading="lazy" width="300" height="300"></a><a href="https://instagram.com/sizygia_" aria-label="Ver en Instagram"><img src="/img/instagram-6.jpg" alt="" loading="lazy" width="300" height="300"></a></div>
+        <div class="seccion-cab"><h2 id="t-ig">Llevadas de verdad</h2><p>Así quedan puestas. Más en <a class="enlace" href="https://instagram.com/sizygia_">@sizygia_</a>.</p></div>
+        <div class="mosaico"><a href="https://instagram.com/sizygia_" aria-label="Ver en Instagram"><img src="/img/instagram-1.jpg" alt="" loading="lazy" width="300" height="300"></a><a href="https://instagram.com/sizygia_" aria-label="Ver en Instagram"><img src="/img/instagram-2.jpg" alt="" loading="lazy" width="300" height="300"></a><a href="https://instagram.com/sizygia_" aria-label="Ver en Instagram"><img src="/img/instagram-3.jpg" alt="" loading="lazy" width="300" height="300"></a><a href="https://instagram.com/sizygia_" aria-label="Ver en Instagram"><img src="/img/instagram-4.jpg" alt="" loading="lazy" width="300" height="300"></a></div>
       </div>
     </section>
 
-    <section class="banda-test" aria-labelledby="t-test">
+    <section class="seccion seccion--superficie" aria-labelledby="t-pagas">
       <div class="envoltorio">
-        <svg viewBox="0 0 120 60" aria-hidden="true"><line x1="0" y1="30" x2="120" y2="30" stroke="#b8965a"/><circle cx="34" cy="30" r="22" fill="#b8965a"/><circle cx="72" cy="30" r="12" fill="#fff" stroke="#08060e" stroke-width="1.5"/><circle cx="102" cy="30" r="7" fill="#08060e"/></svg>
-        <div><h2 id="t-test">¿Sol, Tierra o Luna?</h2><p>Cinco preguntas y dos minutos para saber qué universo eres y qué piezas van contigo.</p></div>
-        <a class="boton" href="/test">Haz el test</a>
+        <div class="seccion-cab"><h2 id="t-pagas">Lo que pagas, explicado</h2><p>Sin letra pequeña. Esto es lo que hay detrás de cada precio.</p></div>
+        <dl class="hechos">
+          <div><dt>304L</dt><dd><strong>Acero inoxidable hipoalergénico.</strong> No se oxida ni destiñe. <a class="enlace" href="/material-y-cuidado">Material y cuidado</a></dd></div>
+          <div><dt>3,95 €</dt><dd><strong>Envío a toda España.</strong> Gratis desde 2 piezas.</dd></div>
+          <div><dt>30 días</dt><dd><strong>Para devolverla sin explicaciones.</strong> <a class="enlace" href="/como-comprar#devoluciones">Cómo devolver</a></dd></div>
+          <div><dt>Stripe</dt><dd><strong>Pago seguro con tarjeta.</strong> No vemos ni guardamos tus datos. También en mano, en nuestros puestos.</dd></div>
+        </dl>
       </div>
     </section>
   </main>
@@ -101,7 +123,9 @@
         <div><img class="pie-logo" src="/assets/marca/logo-marron.svg" alt="Sizygia" width="195" height="99" loading="lazy"><p class="firma">Joyas seleccionadas una a una, para decir quién eres.</p></div>
         <div><h2>Comprar</h2><ul>
           <li><a href="/joyas">Todas las joyas</a></li>
-          <li><a href="/sol">Sol</a> · <a href="/tierra">Tierra</a> · <a href="/luna">Luna</a></li>
+          <li><a href="/sol">Sol</a></li>
+          <li><a href="/tierra">Tierra</a></li>
+          <li><a href="/luna">Luna</a></li>
           <li><a href="/test">¿Qué universo eres?</a></li>
         </ul></div>
         <div><h2>Ayuda</h2><ul>
@@ -117,7 +141,7 @@
           <li><a href="mailto:sizygia.joyeria@gmail.com">sizygia.joyeria@gmail.com</a></li>
         </ul></div>
       </div>
-      <p class="legal">© 2026 Sizygia · Acero inoxidable 304L hipoalergénico · <a href="/legal">Aviso legal, privacidad y condiciones</a></p>
+      <div class="legal"><p>© 2026 Sizygia</p><p>Acero inoxidable 304L hipoalergénico</p><p><a href="/legal">Aviso legal, privacidad y condiciones</a></p></div>
     </div>
   </footer>
   <div class="velo" aria-hidden="true"></div>

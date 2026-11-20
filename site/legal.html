@@ -9,7 +9,7 @@
   <meta property="og:description" content="Aviso legal, política de privacidad y condiciones de venta de Sizygia.">
   <meta property="og:image" content="https://sizygia.es/img/portada.jpg">
   <meta property="og:type" content="website">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#fbf8f3">
   <link rel="preload" href="/assets/fonts/jost-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/cormorant-garamond-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/estilos.css">
@@ -24,23 +24,13 @@
     <p aria-hidden="true">30 días para devolver, sin explicaciones</p>
   </div>
   <header class="cabecera">
-    <div class="envoltorio">
-      <div class="fila">
-        <div class="izq">
-          <button class="icono-btn solo-movil" type="button" data-abre="panel-menu" aria-controls="panel-menu" aria-expanded="false" aria-label="Menú"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg></button>
-          <a class="enlace-test" href="/test">¿Qué universo eres?</a>
-        </div>
-        <a class="logo" href="/" aria-label="Sizygia, inicio"><img src="/assets/marca/logo-marron.svg" alt="Sizygia" width="195" height="99"></a>
-        <div class="der">
-          <button class="icono-btn" type="button" data-abre="panel-bolsa" aria-controls="panel-bolsa" aria-expanded="false" data-etiqueta-bolsa aria-label="Bolsa"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg><span class="contador" data-n="0" aria-hidden="true">0</span></button>
-        </div>
-      </div>
-      <nav class="nav-escritorio" aria-label="Principal"><a href="/joyas">Todas las joyas</a><a href="/sol">Sol</a><a href="/tierra">Tierra</a><a href="/luna">Luna</a><span class="sep" aria-hidden="true"></span><a href="/joyas?tipo=pendientes">Pendientes</a><a href="/joyas?tipo=colgantes">Colgantes</a><a href="/joyas?tipo=pulseras">Pulseras</a><a href="/joyas?tipo=anillos">Anillos</a><span class="sep" aria-hidden="true"></span><a href="/como-comprar">Cómo comprar</a></nav>
+    <div class="envoltorio fila">
+      <button class="icono-btn solo-movil" type="button" data-abre="panel-menu" aria-controls="panel-menu" aria-expanded="false" aria-label="Menú"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg></button>
+      <a class="logo" href="/" aria-label="Sizygia, inicio"><img src="/assets/marca/logo-marron.svg" alt="Sizygia" width="195" height="99"></a>
+      <nav class="nav-escritorio" aria-label="Principal"><a href="/joyas">Joyas</a><a href="/sol">Sol</a><a href="/tierra">Tierra</a><a href="/luna">Luna</a><a href="/test">El test</a><a href="/como-comprar">Cómo comprar</a></nav>
+      <button class="icono-btn bolsa-btn" type="button" data-abre="panel-bolsa" aria-controls="panel-bolsa" aria-expanded="false" data-etiqueta-bolsa aria-label="Bolsa"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg><span class="contador" data-n="0" aria-hidden="true">0</span></button>
     </div>
   </header>
-  <div class="progreso" role="status">
-    <div class="envoltorio"><span data-progreso-texto>Envío gratis desde 2 piezas</span><span class="pista" aria-hidden="true"><span class="lleno" data-progreso-lleno></span></span></div>
-  </div>
   <main id="contenido">
     <div class="texto">
       <section class="seccion">
@@ -91,7 +81,9 @@
         <div><img class="pie-logo" src="/assets/marca/logo-marron.svg" alt="Sizygia" width="195" height="99" loading="lazy"><p class="firma">Joyas seleccionadas una a una, para decir quién eres.</p></div>
         <div><h2>Comprar</h2><ul>
           <li><a href="/joyas">Todas las joyas</a></li>
-          <li><a href="/sol">Sol</a> · <a href="/tierra">Tierra</a> · <a href="/luna">Luna</a></li>
+          <li><a href="/sol">Sol</a></li>
+          <li><a href="/tierra">Tierra</a></li>
+          <li><a href="/luna">Luna</a></li>
           <li><a href="/test">¿Qué universo eres?</a></li>
         </ul></div>
         <div><h2>Ayuda</h2><ul>
@@ -107,7 +99,7 @@
           <li><a href="mailto:sizygia.joyeria@gmail.com">sizygia.joyeria@gmail.com</a></li>
         </ul></div>
       </div>
-      <p class="legal">© 2026 Sizygia · Acero inoxidable 304L hipoalergénico · <a href="/legal">Aviso legal, privacidad y condiciones</a></p>
+      <div class="legal"><p>© 2026 Sizygia</p><p>Acero inoxidable 304L hipoalergénico</p><p><a href="/legal">Aviso legal, privacidad y condiciones</a></p></div>
     </div>
   </footer>
   <div class="velo" aria-hidden="true"></div>
