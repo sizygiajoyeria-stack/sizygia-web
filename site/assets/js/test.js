@@ -51,17 +51,17 @@
 
   var UNIVERSOS = {
     sol: {
-      nombre: "Sol", frase: "Para quien brilla aunque no lo busque.", color: "#f1e1b6", tinta: "#6b4e16",
+      nombre: "Sol", frase: "Para quien brilla aunque no lo busque.", color: "#f2e6c6", tinta: "#6b4e16",
       texto: "Llevas la luz dentro aunque no la busques. Te mueves con energía, presencia y calor, y la gente lo nota antes de que hables.",
       piezas: "Piezas doradas de acero 304L con forma de sol, para llevar puesta la luz que ya tienes."
     },
     tierra: {
-      nombre: "Tierra", frase: "Para quien lleva el otoño dentro.", color: "#e6d9c6", tinta: "#5a4128",
+      nombre: "Tierra", frase: "Para quien lleva el otoño dentro.", color: "#efe6d6", tinta: "#5a4128",
       texto: "Tienes raíz. Eres la persona sólida, la que dura y no sigue modas porque no le hacen falta. Tus objetos cuentan historias reales.",
       piezas: "Acero 304L con piedra natural y formas de la naturaleza, como hojas y piedras: piezas hechas para durar."
     },
     luna: {
-      nombre: "Luna", frase: "Para las noches que importan.", color: "#d7e3e1", tinta: "#2f4a4a",
+      nombre: "Luna", frase: "Para las noches que importan.", color: "#e8e4dd", tinta: "#3d3a36",
       texto: "Hay mucho más en ti de lo que se ve. Te mueves entre el misterio y la delicadeza, y eliges los objetos por lo que significan, no por lo que cuestan.",
       piezas: "Piezas plateadas de acero 304L con formas de luna y de agua, para las noches que importan."
     }
@@ -84,7 +84,7 @@
   function pintarPregunta() {
     var q = PREGUNTAS[actual];
     pasos.pregunta.querySelector("[data-progreso]").textContent = "Pregunta " + (actual + 1) + " de " + PREGUNTAS.length;
-    pasos.pregunta.querySelector("[data-barra]").style.width = (actual / PREGUNTAS.length * 100) + "%";
+    pasos.pregunta.querySelector("[data-barra]").style.transform = "scaleX(" + (actual / PREGUNTAS.length) + ")";
     pasos.pregunta.querySelector("[data-tema]").textContent = q.tema;
     pasos.pregunta.querySelector("[data-enunciado]").textContent = q.texto;
     var lista = pasos.pregunta.querySelector("[data-opciones]");
@@ -143,7 +143,7 @@
     ["sol", "tierra", "luna"].forEach(function (k) {
       var fila = r.querySelector("[data-reparto='" + k + "']");
       fila.querySelector("output").textContent = resultado.pct[k] + " %";
-      fila.querySelector(".lleno").style.width = resultado.pct[k] + "%";
+      fila.querySelector(".lleno").style.transform = "scaleX(" + (resultado.pct[k] / 100) + ")";
     });
     var ver = r.querySelector("[data-ver]");
     ver.href = "/" + resultado.dominante;
